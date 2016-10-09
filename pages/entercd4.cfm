@@ -61,34 +61,21 @@
                 <li><a href="../pages/patientdetail.cfm">Patient Detail</a></li>
             </ul>
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="../pages/createprofile.cfm">Create New Profile</a></li>
-                <li><a href="../pages/entercd4.cfm">Enter CD4</a></li>
+                <li><a href="../pages/createprofile.cfm">Create New Profile</a></li>
+                <li class="active"><a href="../pages/entercd4.cfm">Enter CD4</a></li>
                 <li><a href="../pages/enterviralload.cfm">Enter Viral Load</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Create New Patient Profile</h1>
+            <h1 class="page-header">Enter CD4 Information:</h1>
             <div class="row">
-                <form id="newpatientform">
+                <form id="cd4form">
+                  <div class="form-group">
+                      <label for="patientId">Patient ID*:</label>
+                      <input type="text" class="form-control" id="patientId" required>
+                  </div>
                     <div class="form-group">
-                        <label for="firstName">First Name*:</label>
-                        <input type="text" class="form-control" id="firstName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastName">Last Name*:</label>
-                        <input type="text" class="form-control" id="lastName" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="dob">Date of Birth*:</label>
-                      <input type="date" class="form-control" id="dob" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="providerId">Privider ID:</label>
-                      <input type="text" class="form-control" placeholder="XXX" disabled>
-                      <input type="hidden" class="form-control" id="providerId" value="XXX">
-                    </div>
-                    <div class="form-group">
-                        <label for="notes">Notes:</label>
+                        <label for="notes">CD4* Information:</label>
                         <textarea class="form-control" id="notes" rows="3"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Submit</button>
