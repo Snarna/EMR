@@ -23,19 +23,33 @@
 
     <!-- My Script -->
     <script>
-        $(document).ready(function() {
+        function loalModalPreview() {
 
-            $("#surveystable tbody tr").click(function() {
-                //Get info from datatable row
-                var $surveyId = $($(this).children().get(0)).html();
+            //Get info from datatable row
+            var $surveyId = $($(this).children().get(0)).html();
 
-                //Put in modal
-                $("#modalid").html($surveyId);
+            $.ajax({
+              url: "../classes/surveys/modalpreview.cfc?method=loadmodalpreview",
+              data: {
+                surveyId : $surveyId
+              },
+              success:function(data){
+                console.log("I've received:" + data);
+              },
+              error:function(error){
+                console.log("Error!:" + error);
+              }
 
-                //Show modal
-                $("#sModal").modal('show');
             });
 
+            //Put in modal
+            $("#modalid").html($surveyId);
+
+            //Show modal
+            $("#sModal").modal('show');
+        }
+        $(document).ready(function() {
+            $("#surveystable tbody tr").click(loalModalPreview);
         });
     </script>
 </head>
