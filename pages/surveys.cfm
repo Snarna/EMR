@@ -9,7 +9,7 @@
     <meta name="description" content="EMR User Home Page">
     <meta name="author" content="Snarna">
 
-    <title>Client Home Page</title>
+    <title>Patient Home Page</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap-cerulean.min.css" rel="stylesheet">
@@ -38,7 +38,7 @@
           //Show modal
           $("#notExistModal").modal('show');
         }
-
+        
         function loalModalPreview() {
 
             //Get info from datatable row
@@ -51,6 +51,7 @@
               },
               success:function(data){
                 console.log("I've received:" + data);
+                //Call Modal
                 callExistModal($surveyId);
               },
               error:function(error){
@@ -97,18 +98,18 @@
     <div class="container-fluid">
         <div class="col-sm-3 col-md-2 sidebar collapse in" id="sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="../pages/surveys.html">Surveys<span class="sr-only">(current)</span></a></li>
-                <li><a href="../pages/analytics.html">Analytics</a></li>
-                <li><a href="#">More More!</a></li>
+                <li class="active"><a href="../pages/surveys.cfm">All Surveys<span class="sr-only">(current)</span></a></li>
+                <li><a href="../pages/surveydetail.cfm">Survey Deatil</a></li>
+                <li><a href="../pages/patientdetail.cfm">Patient Detail</a></li>
             </ul>
             <ul class="nav nav-sidebar">
-                <li><a href="">More Options</a></li>
-                <li><a href="">More Options 2</a></li>
-                <li><a href="">More Options 3</a></li>
+                <li><a href="../pages/createprofile.cfm">Create New Profile</a></li>
+                <li><a href="../pages/entercd4.cfm">Enter CD4</a></li>
+                <li><a href="../pages/enterviralload.cfm">Enter Viral Load</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Surveys</h1>
+            <h1 class="page-header">All Surveys</h1>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="input-group">
@@ -248,7 +249,7 @@
             <div class="modal-body" id="modal-body">
               <div class="container-fluid">
                 <div class="row">
-                  <h3><a href="#">-Client Information-</a></h3>
+                  <h3><a href="#">-Patient Information-</a></h3>
                 </div>
                 <hr>
                 <div class="row">
@@ -284,7 +285,7 @@
             <div class="modal-body" id="modal-body">
                 <div class="container-fluid">
                   <div class="row">
-                    <h3>-Client Information-</h3>
+                    <h3>-Patient Information-</h3>
                   </div>
                   <hr>
                   <div class="row">
