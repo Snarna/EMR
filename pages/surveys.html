@@ -23,6 +23,22 @@
 
     <!-- My Script -->
     <script>
+        function callExistModal($surveyId){
+          //Put in modal
+          $("#existModalId").html($surveyId);
+
+          //Show modal
+          $("#existModal").modal('show');
+        }
+
+        function callNotExistModal($surveyId){
+          //Put in modal
+          $("#notExistModalId").html($surveyId);
+
+          //Show modal
+          $("#notExistModal").modal('show');
+        }
+
         function loalModalPreview() {
 
             //Get info from datatable row
@@ -35,18 +51,13 @@
               },
               success:function(data){
                 console.log("I've received:" + data);
+                callExistModal($surveyId);
               },
               error:function(error){
                 console.log("Error!:" + error);
               }
-
             });
 
-            //Put in modal
-            $("#modalid").html($surveyId);
-
-            //Show modal
-            $("#sModal").modal('show');
         }
         $(document).ready(function() {
             $("#surveystable tbody tr").click(loalModalPreview);
@@ -225,20 +236,73 @@
 </body>
 
 <!-- Modal For Survey-->
-<div id="sModal" class="modal fade" role="dialog">
+<div id="existModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="modal-title">Survey ID: <span id="modalid"></span></h4>
+                <button type="button" class="close" data-di smiss="modal">&times;</button>
+                <h4 class="modal-title" id="modal-title">Survey ID: <span id="existModalId"></span></h4>
             </div>
             <div class="modal-body" id="modal-body">
-                <p>Details about this survey</p>
+              <div class="container-fluid">
+                <div class="row">
+                  <h3><a href="#">-Client Information-</a></h3>
+                </div>
+                <hr>
+                <div class="row">
+                  Survey content...
+                  <br>
+                  ...............................
+                  <br>
+                  ......................................
+                </div>
+                <hr>
+                <div class="row">
+                  <button type="button" class="btn">Survey Details..</button>
+                </div>
+              </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Enter CD4 Info</button>
+                <button type="button" class="btn btn-primary">Enter Viral Load Info</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="notExistModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title" id="modal-title">Survey ID: <span id="notExistModalId"></span></h4>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <h3>-Client Information-</h3>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    Survey content...
+                    <br>
+                    ...............................
+                    <br>
+                    ......................................
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <button type="button" class="btn">Survey Details..</button>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              This patient doesn't have a profile.
+                <button type="button" class="btn btn-primary">Create New Profile</button>
             </div>
         </div>
 
