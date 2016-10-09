@@ -22,6 +22,20 @@
     <script src="../js/bootstrap.min.js"></script>
 
     <!-- My Script -->
+    <script src="../js/miscScript.js"></script>
+    <script>
+        function getPatientInfo() {
+            var tempPatientId = getUrlParameter('patientId');
+            if (tempPatientId != "") {
+                $("#patientId").val(tempPatientId);
+            }
+        }
+
+        $(document).ready(function() {
+            //Call Get Patient Info
+            getPatientInfo();
+        });
+    </script>
 </head>
 
 <body>

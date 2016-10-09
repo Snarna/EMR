@@ -23,26 +23,30 @@
 
     <!-- My Script -->
     <script>
-        function callExistModal($surveyId){
-          //Put in modal
-          $("#existModalId").html($surveyId);
+        function callModal($surveyId, $patientId){
+          //Call Not Exist Modal
+          if($patientId == ""){
+            //Change Modal Data
+            $("#notExistModalId").html($surveyId);
 
-          //Show modal
-          $("#existModal").modal('show');
+            //Show Modal
+            $("#notExistModal").modal('show');
+          }
+          //Call Exist Modal
+          else{
+            //Change Modal Data
+            $("#existModalId").html($surveyId);
+            $("#existCD4Button").attr("onclick", "location.href='../pages/entercd4.cfm?patientId="+$patientId+"'");
+            $("#existViralButton").attr("onclick", "location.href='../pages/enterviralload.cfm?patientId="+$patientId+"'");
+            //Show Modal
+            $("#existModal").modal('show');
+          }
         }
 
-        function callNotExistModal($surveyId){
-          //Put in modal
-          $("#notExistModalId").html($surveyId);
-
-          //Show modal
-          $("#notExistModal").modal('show');
-        }
-        
         function loalModalPreview() {
-
-            //Get info from datatable row
+            //Get info from data table row
             var $surveyId = $($(this).children().get(0)).html();
+            var $patientId = "123456";
 
             $.ajax({
               url: "../classes/surveys/modalpreview.cfc?method=loadmodalpreview",
@@ -51,15 +55,14 @@
               },
               success:function(data){
                 console.log("I've received:" + data);
-                //Call Modal
-                callExistModal($surveyId);
+                callModal($surveyId, $patientId);
               },
               error:function(error){
                 console.log("Error!:" + error);
               }
             });
-
         }
+
         $(document).ready(function() {
             $("#surveystable tbody tr").click(loalModalPreview);
         });
@@ -266,8 +269,8 @@
               </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Enter CD4 Info</button>
-                <button type="button" class="btn btn-primary">Enter Viral Load Info</button>
+                <button type="button" class="btn btn-primary" id="existCD4Button" onclick="">Enter CD4 Info</button>
+                <button type="button" class="btn btn-primary" id="existViralButton" onclick="">Enter Viral Load Info</button>
             </div>
         </div>
 
@@ -303,7 +306,7 @@
             </div>
             <div class="modal-footer">
               This patient doesn't have a profile.
-                <button type="button" class="btn btn-primary">Create New Profile</button>
+                <button type="button" class="btn btn-primary" id="notExistCreateButton" onclick="">Create New Profile</button>
             </div>
         </div>
 

@@ -22,6 +22,20 @@
     <script src="../js/bootstrap.min.js"></script>
 
     <!-- My Script -->
+    <script src="../js/miscScript.js"></script>
+    <script>
+        function getPatientInfo() {
+            var tempPatientId = getUrlParameter('patientId');
+            if (tempPatientId != "") {
+                $("#patientId").val(tempPatientId);
+            }
+        }
+
+        $(document).ready(function() {
+            //Call Get Patient Info
+            getPatientInfo();
+        });
+    </script>
 </head>
 
 <body>
@@ -70,10 +84,10 @@
             <h1 class="page-header">Enter CD4 Information:</h1>
             <div class="row">
                 <form id="cd4form">
-                  <div class="form-group">
-                      <label for="patientId">Patient ID*:</label>
-                      <input type="text" class="form-control" id="patientId" required>
-                  </div>
+                    <div class="form-group">
+                        <label for="patientId">Patient ID*:</label>
+                        <input type="text" class="form-control" id="patientId" required>
+                    </div>
                     <div class="form-group">
                         <label for="notes">CD4* Information:</label>
                         <textarea class="form-control" id="notes" rows="3"></textarea>
