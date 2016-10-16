@@ -27,6 +27,11 @@
 </head>
 
 <body>
+<cfif isDefined("form.newUserSubmit")>
+	<cfinvoke component="Application" method="addUser" test="WE MADE IT">
+	<cfset userIsInserted = true />
+</cfif>
+
 
     <nav class="navbar navbar-default navbar-fixed-top mytransparent">
         <div class="container-fluid">
@@ -44,7 +49,10 @@
                     <h1 class="text-center">Welcome EMR System</h1>
                 </div>
                 <div class="modal-body">
-                  <form id="signinform">
+		<cfif isDefined('userIsInserted')>
+			<h2>User submitted</h2>
+		<cfelse>
+                  <form id="signinform" method="post">
                     <h2 class="form-signup-heading">Sign Up Form</h2><span>Notice: Fields marked with (<span class="requiredstar">*</span>) are required </span>
                     <div class="form-group">
                         <label for="email" class="col-form-label">Email <span class="requiredstar">*</span> </label>
@@ -81,8 +89,9 @@
                         <input type="text" class="form-control" id="secquestion2ans" required>
                     </div>
                     <br>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up!</button>
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" name="newUserSubmit" id="newUserSubmit">Sign Up!</button>
                   </form>
+		</cfif>
                 </div>
             </div>
         </div>
