@@ -27,8 +27,10 @@
 </head>
 
 <body>
+
+<!--- If we submitted something to the form... --->
 <cfif isDefined("form.newUserSubmit")>
-	<cfinvoke component="Application" method="addUser" test="WE MADE IT">
+	<cfinvoke component="Application" method="addUser" proEmail='#form.email#' proUsername='#form.providername#' proFname='#secquestion1ans#' proLname='#secquestion2ans#' proPassword='#password#'>
 	<cfset userIsInserted = true />
 </cfif>
 
@@ -56,28 +58,28 @@
                     <h2 class="form-signup-heading">Sign Up Form</h2><span>Notice: Fields marked with (<span class="requiredstar">*</span>) are required </span>
                     <div class="form-group">
                         <label for="email" class="col-form-label">Email <span class="requiredstar">*</span> </label>
-                        <input type="email" class="form-control" id="email" required>
+                        <input type="email" class="form-control" name="email" id="email" required>
                     </div>
                     <div class="form-group">
                         <label for="providername" class="col-form-label">Provider Name <span class="requiredstar">*</span> </label>
-                        <input type="text" class="form-control" id="providername" required>
+                        <input type="text" class="form-control" name="providername" id="providername" required>
                     </div>
                     <div class="form-group">
                         <label for="password" class="col-form-label">Password <span class="requiredstar">*</span> </label>
-                        <input type="password" class="form-control" id="password" required>
+                        <input type="password" class="form-control" name="password" id="password" required>
                     </div>
                     <div class="form-group">
                         <label for="passwordconfirm" class="col-form-label">Confrim Password <span class="requiredstar">*</span> </label>
-                        <input type="password" class="form-control" id="passwordconfirm" required>
+                        <input type="password" class="form-control" name="passwordconfirm" id="passwordconfirm" required>
                     </div>
                     <div class="form-group">
                         <label for="secquestion1" class="col-form-label">Security Question 1 <span class="requiredstar">*</span> </label>
-                        <select class="form-control" id="secquestion1">
+                        <select class="form-control" name="secquestion1" id="secquestion1">
                           <option value="q_1_1">Open this select menu</option>
                           <option value="q_1_2">One</option>
                           <option value="q_1_3">Two</option>
                         </select>
-                        <input type="text" class="form-control" id="secquestion1ans" required>
+                        <input type="text" class="form-control" name="secquestion1ans" id="secquestion1ans" required>
                     </div>
                     <div class="form-group">
                         <label for="secquestion2" class="col-form-label">Security Question 2 <span class="requiredstar">*</span> </label>
@@ -86,7 +88,7 @@
                           <option value="q_2_2">One</option>
                           <option value="q_2_3">Two</option>
                         </select>
-                        <input type="text" class="form-control" id="secquestion2ans" required>
+                        <input type="text" class="form-control" name="secquestion2ans"  id="secquestion2ans" required>
                     </div>
                     <br>
                     <input class="btn btn-lg btn-primary btn-block" type="submit" name="newUserSubmit" id="newUserSubmit">Sign Up!</button>
