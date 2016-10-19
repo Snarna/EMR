@@ -56,12 +56,11 @@
     <div class="container-fluid">
         <div class="col-sm-3 col-md-2 sidebar collapse in" id="sidebar">
           <ul class="nav nav-sidebar">
-              <li><a href="../pages/patients.cfm">All Surveys<span class="sr-only">(current)</span></a></li>
+              <li><a href="../pages/patients.cfm">All Patients<span class="sr-only">(current)</span></a></li>
               <li><a href="../pages/surveydetail.cfm">Survey Deatil</a></li>
               <li class="active"><a href="../pages/patientdetail.cfm">Patient Detail</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-
               <li><a href="../pages/entercd4.cfm">Enter CD4</a></li>
               <li><a href="../pages/enterviralload.cfm">Enter Viral Load</a></li>
           </ul>

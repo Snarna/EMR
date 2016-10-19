@@ -101,18 +101,17 @@
     <div class="container-fluid">
         <div class="col-sm-3 col-md-2 sidebar collapse in" id="sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="../pages/patients.cfm">All Surveys<span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="../pages/patients.cfm">All Patients<span class="sr-only">(current)</span></a></li>
                 <li><a href="../pages/surveydetail.cfm">Survey Deatil</a></li>
                 <li><a href="../pages/patientdetail.cfm">Patient Detail</a></li>
             </ul>
             <ul class="nav nav-sidebar">
-
                 <li><a href="../pages/entercd4.cfm">Enter CD4</a></li>
                 <li><a href="../pages/enterviralload.cfm">Enter Viral Load</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">All Surveys</h1>
+            <h1 class="page-header">Patients</h1>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="input-group">
