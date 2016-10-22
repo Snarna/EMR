@@ -25,12 +25,17 @@
     <script src="../js/bootstrap.min.js"></script>
 
 </head>
-
 <body>
 
 <!--- If we submitted something to the form... --->
 <cfif isDefined("form.newUserSubmit")>
-	<cfinvoke component="Application" method="addUser" proEmail='#form.email#' proUsername='#form.providername#' proFname='#secquestion1ans#' proLname='#secquestion2ans#' proPassword='#password#'>
+<!--- Add new user to the database --->
+	<cfquery datasource="capstone">
+		INSERT INTO Providers
+		(providerId, proEmail, proUsername, proFname, proLname, proPassword)
+		VALUES
+		(0, '#form.email#', '#form.providername#', '#form.secquestion1ans#', '#form.secquestion2ans#', '#form.password#')
+	</cfquery>
 	<cfset userIsInserted = true />
 </cfif>
 
