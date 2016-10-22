@@ -26,6 +26,14 @@
 
 </head>
 
+<cfif isDefined("form.submitLogin")>
+	<cfdump var='#application#'>
+	<cfset loggedIn = application.loginService.doLogin(form.username,form.password) />
+	<cfif structKeyExists(session,'stLoggedInUser')>
+		<cflocation url="surveys.cfm">
+	</cfif>
+</cfif>
+
 <body>
 
     <nav class="navbar navbar-default navbar-fixed-top mytransparent">
@@ -44,13 +52,13 @@
                     <h1 class="text-center">Welcome EMR System</h1>
                 </div>
                 <div class="modal-body">
-                  <form id="signinform" action="surveys.html">
+                  <form id="signinform" method="post">
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg" placeholder="Username" />
+                        <input type="text" class="form-control input-lg" placeholder="username" name="username" />
                     </div>
 
                     <div class="form-group">
-                        <input type="password" class="form-control input-lg" placeholder="Password" />
+                        <input type="password" class="form-control input-lg" name="password" placeholder="password" />
                     </div>
 
                     <div class="row">
@@ -62,7 +70,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" class="btn btn-block btn-lg btn-primary" value="Login" />
+                        <input type="submit" class="btn btn-block btn-lg btn-primary" name="submitLogin" id="submitLogin" />
                     </div>
                     <span><a href="#">Forgot Password</a></span><span class="pull-right"><a href="../pages/signup.html">Sign Up</a></span>
                   </form>
