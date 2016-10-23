@@ -38,15 +38,30 @@
                 });
             }
 
+            function getPatients() {
+                $.ajax({
+                    url: "../classes/patient/getPatients.cfc",
+                    data: {
+                        method: "getPatients"
+                    },
+                    success: function (data) {
+                        $("#patientstablebody").html(data);
+                        $("#patientstable tbody tr").click(conf)
+                    },
+                    error: function (error) {
+                        console.log("Error!" + error);
+                    }
+                });
+            }
+
             function callModal($patientId, $patientId) {
                 //Call Not Exist Modal
                 if ($patientId == "") {
                     //Change Modal Data
-                    $("#notExistModalId").html($patientId);
+                    $("#confModalId").html($patientId);
 
                     //Show Modal
-                    $("#notExistModal").modal('show'//Call Exist Modal
-                    );
+                    $("#confModal").modal('show');
                 } else {
                     //Change Modal Data
                     $("#existModalId").html($patientId);
@@ -57,31 +72,23 @@
                 }
             }
 
-            function loalModalPreview() {
-                //Get info from data table row
-                var $patientId = $($(this).children().get(0)).html();
-                var $patientId = "123456";
-
-                $.ajax({
-                    url: "../classes/patient/modalpreview.cfc",
-                    data: {
-                        method: "loadmedalpreview",
-                        patientId: $patientId
-                    },
-                    success: function (data) {
-                        console.log("I've received:" + data);
-                        callModal($patientId, $patientId);
-                    },
-                    error: function (error) {
-                        console.log("Error!:" + error);
-                    }
+            function conf() {
+                var pid = $($(this).children().get(0)).html();
+                var fname = $($(this).children().get(1)).html();
+                var lname = $($(this).children().get(2)).html();
+                var dob = $($(this).children().get(3)).html();
+                $("#confModalPid").html(pid);
+                $("#confModalName").html(fname + " " + lname);
+                $("#confModalDob").html(dob);
+                $("#confModalDetailButton").click(function(){
+                  window.location.href = "../pages/patientdetail.cfm?method=getPatientDetail&pid="+pid;
                 });
+                $("#confModal").modal('show');
             }
 
             $(document).ready(function () {
                 countPatients();
-                $("#patientstable tbody tr").click(loalModalPreview);
-
+                getPatients();
             });
         </script>
     </head>
@@ -163,7 +170,7 @@
                                     <th>Registered Date</th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody id="patientstablebody"></tbody>
                         </table>
                     </div>
                 </div>
@@ -207,80 +214,29 @@
         </div>
     </body>
 
-    <!-- Modal For patient-->
-    <div id="existModal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-di smiss="modal">&times;</button>
-                    <h4 class="modal-title" id="modal-title">patient ID:
-                        <span id="existModalId"></span>
-                    </h4>
-                </div>
-                <div class="modal-body" id="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <h3>
-                                <a href="#">-Patient Information-</a>
-                            </h3>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            patient content...
-                            <br>
-                            ...............................
-                            <br>
-                            ......................................
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <button type="button" class="btn">patient Details..</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="existCD4Button" onclick="">Enter CD4 Info</button>
-                    <button type="button" class="btn btn-primary" id="existViralButton" onclick="">Enter Viral Load Info</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div id="notExistModal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
+    <div id="confModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title" id="modal-title">patient ID:
-                        <span id="notExistModalId"></span>
-                    </h4>
+                    <h2 class="modal-title" id="modal-title">Patient ID:
+                        <span id="confModalPid"></span>
+                    </h2>
                 </div>
                 <div class="modal-body" id="modal-body">
                     <div class="container-fluid">
                         <div class="row">
-                            <h3>-Patient Information-</h3>
+                            <h3>Patient Name: <span id="confModalName"></span></h3>
                         </div>
-                        <hr>
                         <div class="row">
-                            patient content...
-                            <br>
-                            ...............................
-                            <br>
-                            ......................................
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <button type="button" class="btn">patient Details..</button>
+                            <h3><small>Date of Birth:<span id="confModalDob"></span></small></h3>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    This patient doesn't have a profile.
-                    <button type="button" class="btn btn-primary" id="notExistCreateButton" onclick="">Create New Profile</button>
+                    Click Button To View Patient Details And More &nbsp;
+                    <button type="button" class="btn btn-primary" id="confModalDetailButton">Details</button>
                 </div>
             </div>
 

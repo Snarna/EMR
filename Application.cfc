@@ -1,7 +1,7 @@
 <cfcomponent output="false">
 	<cfset This.name="EMR"/>
 	<cfset This.Sessionmanagement="True"/>
-	<cfset this.sessionTimeout = createTimeSpan( 0, 0, 3, 0 ) />
+	<cfset this.sessionTimeout = createTimeSpan( 0, 0, 30, 0 ) />
 	<cfset This.loginstorage="session"/>
 	<cfset this.mappings["/local" ]=getDirectoryFromPath(getCurrentTemplatePath())/>
 
