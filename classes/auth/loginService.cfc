@@ -18,7 +18,7 @@
 				<cfloginuser name='#rsLoginUser.profname#' password='#rsLoginUser.propassword#' roles="user">
 			</cflogin>
 			<!--- save in the session (important) --->
-			<cfset session.providerEmai = rsLoginUser.proemail/>
+			<cfset session.providerEmail = rsLoginUser.proemail/>
 			<cfset session.userFname = rsLoginUser.profname/>
 			<cfset session.userLname = rsLoginUser.prolname/>
 			<!--- change logged in variable to true --->

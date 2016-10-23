@@ -1,7 +1,3 @@
-<cfif structKeyExists(session,'stLoggedInUser') EQ false>
-  <cflocation url="sigin.cfm">
-</cfif>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,8 +49,9 @@
             var $patientId = "123456";
 
             $.ajax({
-              url: "../classes/surveys/modalpreview.cfc?method=loadmodalpreview",
+              url: "../classes/surveys/modalpreview.cfc",
               data: {
+                method: "loadmedalpreview",
                 surveyId : $surveyId
               },
               success:function(data){

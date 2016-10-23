@@ -16,12 +16,13 @@
 		<cfreturn true/>
 	</cffunction>
 
+	<!--On Every Request Start -->
 	<cffunction name="onRequestStart" returntype="boolean" output="false">
 		<cfargument name="targetPage" required="true"/>
 
 		<!-- Login Valication Control -->
 		<cfif #targetPage# NEQ "/EMR/classes/auth/loginService.cfc" AND #targetPage# NEQ "/EMR/pages/signin.cfm" AND #targetPage# NEQ "/EMR/pages/signup.cfm">
-			<cfif NOT StructKeyExists(session, "stLoggedInUser")>
+			<cfif NOT StructKeyExists(session, "providerEmail")>
 				<cflocation url="signin.cfm" addtoken="false">
 			</cfif>
 		</cfif>
