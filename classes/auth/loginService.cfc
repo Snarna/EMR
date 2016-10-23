@@ -1,30 +1,31 @@
-<cfcomponent output="false">
+<cfcomponent>
 	<!--- Login --->
-	<cffunction name="doLogin" access="remote" output="false" returntype="boolean">
+	<cffunction name="doLogin" access="remote" returntype="any" returnformat="json">
 		<cfargument name="proEmail" type="string" required="true"/>
 		<cfargument name="proPassword" type="string" required="true"/>
-		<!--- To determine if user is logged in --->
-		<cfset var isLoggedIn=false/>
+
 		<!--- Get data from db --->
 		<cfquery name="rsLoginUser" datasource="emrdb" result="loginResults">
-			SELECT providersData.profname, providersData.prolname, providersData.providerid, providersData.proemail, providersData.propassword FROM providersData WHERE providersData.proEmail = '#arguments.proEmail#' AND providersData.proPassword = '#arguments.proPassword#'
+			SELECT providersData.profname, providersData.prolname, providersData.providerid, providersData.proemail, providersData.propassword
+			FROM providersData WHERE providersData.proemail = '#arguments.proEmail#'
+			AND providersData.propassword = '#arguments.proPassword#'
 		</cfquery>
-		<cfdump var="#loginResults#">
+		<cfset var isLoggedIn = false>
 		<!--- should only get one user --->
 		<cfif rsLoginUser.recordCount EQ 1>
 			<!--- log user in --->
 			<cflogin>
-				<cfloginuser name='#rsLoginUser.proFname#' password='#rsLoginUser.proPassword#' roles="user">
-				<cfdump var="#rsLoginUser#">
+				<cfloginuser name='#rsLoginUser.profname#' password='#rsLoginUser.propassword#' roles="user">
 			</cflogin>
 			<!--- save in the session (important) --->
-			<cfset session.stLoggedInUser={'ProviderName'=rsLoginUser.proEmail, 'userFname'=rsLoginUser.proFname}/>
+			<cfset session.providerEmai = rsLoginUser.proemail/>
+			<cfset session.userFname = rsLoginUser.profname/>
+			<cfset session.userLname = rsLoginUser.prolname/>
 			<!--- change logged in variable to true --->
-			<cfset var isLoggedIn=true/>
-		<cfelse>
-			<cfset var isLoggedIn=false/>
+			<cfset isLoggedIn=true/>
 		</cfif>
+
 		<!--- retruned aforementioned variable --->
-		<cfreturn isLoggedIn/>
+		<cfreturn isLoggedIn>
 	</cffunction>
 </cfcomponent>

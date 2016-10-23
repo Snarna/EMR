@@ -12,3 +12,12 @@ var getUrlParameter = function getUrlParameter(sParam) {
         }
     }
 };
+
+function responseErrMsg($msg){
+  $("#responsediv").html($msg);
+  $("#responsediv").show();
+  $("#responsediv").addClass("animated shake");
+  $("#responsediv").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function () {
+      $("#responsediv").removeClass("animated shake");
+  });
+}

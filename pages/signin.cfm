@@ -28,49 +28,43 @@
         <script src="../js/bootstrap.min.js"></script>
 
         <!-- My Script -->
+        <script src="../js/miscScript.js"></script>
         <script>
             $(document).ready(function () {
                 //Hide Msg Div
-                $("#loginresponsediv").hide();
+                $("#responsediv").hide();
 
                 //On Form Submit
                 $("form").submit(function (event) {
                     //Hide Msg Div
-                    $("#loginresponsediv").hide();
+                    $("#responsediv").hide();
+
                     //Prevent Submit
                     event.preventDefault();
                     //Get Information From Form
-                    var email = $("#inputemail").val();
-                    var password = $("#inputpassword").val();
+                    var email = $("#username").val();
+                    var password = $("#password").val();
                     if (email && password) {
                         $.ajax({
                             url: "../classes/auth/loginService.cfc",
                             type: "POST",
                             data: {
                                 method: "doLogin",
-                                email: email,
-                                password: password
+                                proEmail: email,
+                                proPassword: password
                             },
+                            dataType: "json",
                             success: function (data) {
-                                if (data) {
+                              console.log("data:"+data);
+                                if (data == true) {
                                     //Success
                                     window.location.href = "../pages/patients.cfm";
                                 } else {
-                                    $("#loginresponsediv").html(data);
-                                    $("#loginresponsediv").show();
-                                    $("#loginresponsediv").addClass("animated shake");
-                                    $("#loginresponsediv").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function () {
-                                        $("#loginresponsediv").removeClass("animated shake");
-                                    });
+                                    responseErrMsg("Login failed! Please check your username and password");
                                 }
                             },
                             error: function (err) {
-                                $("#loginresponsediv").html(data);
-                                $("#loginresponsediv").show();
-                                $("#loginresponsediv").addClass("animated shake");
-                                $("#loginresponsediv").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function () {
-                                    $("#loginresponsediv").removeClass("animated shake");
-                                });
+                                responseErrMsg("Error:" + err);
                             }
                         });
                     }
@@ -96,18 +90,16 @@
                         <h1 class="text-center">Welcome EMR System</h1>
                     </div>
                     <div class="modal-body">
-                        <form id="signinform">
-                            <div class="alert alert-danger" id="loginresponsediv" style="display:none;"></div>
+                        <form id="loginform">
+                            <div class="alert alert-danger" id="responsediv" style="display:none;"></div>
                             <div class="form-group">
-                                <input type="text" class="form-control input-lg" name="username" id="username" placeholder="Username"/>
+                                <input type="text" class="form-control input-lg" name="username" id="username" placeholder="Username"required>
                             </div>
-
                             <div class="form-group">
-                                <input type="password" class="form-control input-lg" name="password" id="password" placeholder="Password"/>
+                                <input type="password" class="form-control input-lg" name="password" id="password" placeholder="Password" required>
                             </div>
-
                             <div class="form-group">
-                                <button type="submit">Login</button>
+                              <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
                             </div>
                             <span>
                                 <a href="#">Forgot Password</a>

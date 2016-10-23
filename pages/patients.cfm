@@ -1,3 +1,7 @@
+<cfif structKeyExists(session,'stLoggedInUser') EQ false>
+  <cflocation url="sigin.cfm">
+</cfif>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,11 +90,11 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Profile</a></li>
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, XXXX <b class="caret"></b></a>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <cfoutput>#Session.userFname#</cfoutput> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><i class="icon-envelope"></i>Support</a></li>
                             <li class="divider"></li>
-                            <li><a href="#"><i class="icon-off"></i>Logout</a></li>
+                            <li><a href="signin.cfm?logout"><i class="icon-off"></i>Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -102,12 +106,6 @@
         <div class="col-sm-3 col-md-2 sidebar collapse in" id="sidebar">
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="../pages/patients.cfm">All Patients<span class="sr-only">(current)</span></a></li>
-                <li><a href="../pages/surveydetail.cfm">Survey Deatil</a></li>
-                <li><a href="../pages/patientdetail.cfm">Patient Detail</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="../pages/entercd4.cfm">Enter CD4</a></li>
-                <li><a href="../pages/enterviralload.cfm">Enter Viral Load</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
