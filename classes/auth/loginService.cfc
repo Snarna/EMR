@@ -5,7 +5,7 @@
 		<cfargument name="proPassword" type="string" required="true"/>
 
 		<!--- Get data from db --->
-		<cfquery name="rsLoginUser" datasource="emrdb" result="loginResults">
+		<cfquery name="rsLoginUser" datasource="emrdb">
 			SELECT providersData.profname, providersData.prolname, providersData.providerid, providersData.proemail, providersData.propassword
 			FROM providersData WHERE providersData.proemail = '#arguments.proEmail#'
 			AND providersData.propassword = '#arguments.proPassword#'
