@@ -17,6 +17,9 @@
     <!-- Custom styles for this template -->
     <link href="../css/dashboard.css" rel="stylesheet">
 
+    <!-- Animate CSS -->
+    <link href="../css/animate.css" rel="stylesheet">
+
     <!-- Bootstrap core JavaScript -->
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>

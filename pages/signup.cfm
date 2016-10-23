@@ -17,6 +17,9 @@
     <!-- Custom styles for this template -->
     <link href="../css/dashboard.css" rel="stylesheet">
 
+    <!-- Animate CSS -->
+    <link href="../css/animate.css" rel="stylesheet">
+
     <!-- Sign In Page CSS -->
     <link href="../css/signup.css" rel="stylesheet">
 
