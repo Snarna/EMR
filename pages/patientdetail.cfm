@@ -55,41 +55,25 @@
 
     <div class="container-fluid">
         <div class="col-sm-3 col-md-2 sidebar collapse in" id="sidebar">
-            <ul class="nav nav-sidebar">
-                <li><a href="../pages/surveys.html">Surveys<span class="sr-only">(current)</span></a></li>
-                <li class="active"><a href="../pages/analytics.html">Analytics</a></li>
-                <li><a href="#">More More!</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="">More Options</a></li>
-                <li><a href="">More Options 2</a></li>
-                <li><a href="">More Options 3</a></li>
-            </ul>
+          <ul class="nav nav-sidebar">
+              <li><a href="../pages/patients.cfm">All Patients<span class="sr-only">(current)</span></a></li>
+              <li><a href="../pages/surveydetail.cfm">Survey Deatil</a></li>
+              <li class="active"><a href="../pages/patientdetail.cfm">Patient Detail</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+              <li><a href="../pages/entercd4.cfm">Enter CD4</a></li>
+              <li><a href="../pages/enterviralload.cfm">Enter Viral Load</a></li>
+          </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Surveys Overview</h1>
-
-            <div class="row placeholders">
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
-                    <span class="text-muted">Something else</span>
-                </div>
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
-                    <span class="text-muted">Something else</span>
-                </div>
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
-                    <span class="text-muted">Something else</span>
-                </div>
-                <div class="col-xs-6 col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4>Label</h4>
-                    <span class="text-muted">Something else</span>
-                </div>
+            <h1 class="page-header">Patient Detail</h1>
+            <div class="row">
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="surveyIdInput" placeholder="Patient ID" required>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button">Search</button>
+                    </span>
+                  </div>
             </div>
           </div>
       </div>
