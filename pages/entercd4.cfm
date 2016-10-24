@@ -9,7 +9,7 @@
         <meta name="description" content="EMR User Home Page">
         <meta name="author" content="Snarna">
 
-        <title>Client Home Page</title>
+        <title>CD4 Page</title>
 
         <!-- Bootstrap core CSS -->
         <link href="../css/bootstrap-cerulean.min.css" rel="stylesheet">
@@ -20,23 +20,42 @@
         <!-- Animate CSS -->
         <link href="../css/animate.css" rel="stylesheet">
 
+        <!-- JQuery-UI CSS -->
+        <link href="../css/jquery-ui.min.css" rel="stylesheet">
+
         <!-- Bootstrap core JavaScript -->
         <script src="../js/jquery-3.1.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/jquery-ui.min.js"></script>
 
         <!-- My Script -->
         <script src="../js/miscScript.js"></script>
         <script>
-            function getPatientInfo() {
-                var tempPatientId = getUrlParameter('patientId');
-                if (tempPatientId != "") {
-                    $("#patientId").val(tempPatientId);
-                }
+            var pid = <cfoutput>#url.pid#</cfoutput>;
+
+            function getPatientDetail() {
+                $.ajax({
+                    url: "../classes/patient/getPatientDetail.cfc",
+                    data: {
+                        method: "getPatientDetail",
+                        pid: pid
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#name").html(data.fname + " " + data.lname);
+                        $("#dob").html(data.dob);
+                    },
+                    error: function (error) {
+                        console.log("Error!:" + error);
+                    }
+                });
             }
 
             $(document).ready(function () {
-                //Call Get Patient Info
-                getPatientInfo();
+              $( function() {
+                $( "#date" ).datepicker();
+              });
+                getPatientDetail();
             });
         </script>
     </head>
@@ -63,7 +82,8 @@
                             <a href="#">Profile</a>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <cfoutput>#Session.userFname#</cfoutput>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome,
+                                <cfoutput>#Session.userFname#</cfoutput>
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
@@ -73,7 +93,7 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#">
+                                    <a href="signin.cfm?logout">
                                         <i class="icon-off"></i>Logout</a>
                                 </li>
                             </ul>
@@ -84,42 +104,78 @@
         </nav>
 
         <div class="container-fluid">
-            <div class="col-sm-3 col-md-2 sidebar collapse in" id="sidebar">
-                <ul class="nav nav-sidebar">
-                    <li>
-                        <a href="../pages/patients.cfm">All Surveys<span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../pages/surveydetail.cfm">Survey Deatil</a>
-                    </li>
-                    <li>
-                        <a href="../pages/patientdetail.cfm">Patient Detail</a>
-                    </li>
-                </ul>
-                <ul class="nav nav-sidebar">
-                    <li class="active">
-                        <a href="../pages/entercd4.cfm">Enter CD4</a>
-                    </li>
-                    <li>
-                        <a href="../pages/enterviralload.cfm">Enter Viral Load</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">Enter CD4 Information:</h1>
+          <div class="row">
+              <ol class="breadcrumb">
+                  <li>
+                      <a href="patients.cfm">Patients</a>
+                  </li>
+                  <li><a href="patientdetail.cfm?pid=<cfoutput>#url.pid#</cfoutput>">Details</a></li>
+                  <li class="active">
+                    CD4
+                  </li>
+              </ol>
+          </div>
+            <div class="main">
+              <div class="row ">
+                <div class="col-sm-12">
+                  <h1 class="page-header">CD4 Information</h1>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-2">
+                      <strong>Name:</strong>
+                  </div>
+                  <div class="col-sm-10">
+                      <span id="name"></span>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-2">
+                      <strong>Date of Birth:</strong>
+                  </div>
+                  <div class="col-sm-10">
+                      <span id="dob"></span>
+                  </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-12">
+                  <h3>History</h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12" id="cd4history">
+
+                </div>
+              </div>
+              <hr>
                 <div class="row">
+                  <div class="col-sm-12">
+                    <h3>Enter New Record</h3>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
                     <form id="cd4form">
                         <div class="form-group">
-                            <label for="patientId">Patient ID*:</label>
-                            <input type="text" class="form-control" id="patientId" required>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <label for="patientId">CD4 Number*:</label>
+                              <input type="number" class="form-control" id="cd4num" required>
+                            </div>
+                            <div class="col-sm-6">
+                              <label for="patientId">Date*:</label>
+                              <input type="text" class="form-control" id="date" required>
+                            </div>
+                          </div>
                         </div>
                         <div class="form-group">
-                            <label for="notes">CD4* Information:</label>
+                            <label for="notes">CD4 Notes:</label>
                             <textarea class="form-control" id="notes" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     </form>
+                  </div>
                 </div>
             </div>
         </div>
