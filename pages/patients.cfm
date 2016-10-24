@@ -17,11 +17,15 @@
         <!-- Custom styles for this template -->
         <link href="../css/dashboard.css" rel="stylesheet">
 
+        <!-- Animate CSS -->
+        <link href="../css/animate.css" rel="stylesheet">
+
         <!-- Bootstrap core JavaScript -->
         <script src="../js/jquery-3.1.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
 
         <!-- My Script -->
+        <script src="../js/miscScript.js"></script>
         <script>
             function countPatients() {
                 $.ajax({
@@ -80,8 +84,8 @@
                 $("#confModalPid").html(pid);
                 $("#confModalName").html(fname + " " + lname);
                 $("#confModalDob").html(dob);
-                $("#confModalDetailButton").click(function(){
-                  window.location.href = "../pages/patientdetail.cfm?method=getPatientDetail&pid="+pid;
+                $("#confModalDetailButton").click(function () {
+                    window.location.href = "../pages/patientdetail.cfm?pid=" + pid;
                 });
                 $("#confModal").modal('show');
             }
@@ -104,7 +108,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">EMR Home</a>
+                    <a class="navbar-brand" href="#">EMR</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -137,16 +141,19 @@
         </nav>
 
         <div class="container-fluid">
-            <div class="col-sm-3 col-md-2 sidebar collapse in" id="sidebar">
-                <ul class="nav nav-sidebar">
-                    <li class="active">
-                        <a href="../pages/patients.cfm">All Patients<span class="sr-only">(current)</span>
-                        </a>
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="patients.cfm">Patients</a>
                     </li>
-                </ul>
+                </ol>
             </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">Patients</h1>
+            <div class="main">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h1 class="page-header">All Patients</h1>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="input-group">
@@ -159,19 +166,21 @@
                 </div>
 
                 <div class="row">
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="patientstable">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>DOB</th>
-                                    <th>Registered Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="patientstablebody"></tbody>
-                        </table>
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="patientstable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>DOB</th>
+                                        <th>Registered Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="patientstablebody"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -227,10 +236,15 @@
                 <div class="modal-body" id="modal-body">
                     <div class="container-fluid">
                         <div class="row">
-                            <h3>Patient Name: <span id="confModalName"></span></h3>
+                            <h3>Patient Name:
+                                <span id="confModalName"></span>
+                            </h3>
                         </div>
                         <div class="row">
-                            <h3><small>Date of Birth:<span id="confModalDob"></span></small></h3>
+                            <h3>
+                                <small>Date of Birth:<span id="confModalDob"></span>
+                                </small>
+                            </h3>
                         </div>
                     </div>
                 </div>
