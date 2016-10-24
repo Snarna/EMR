@@ -27,10 +27,16 @@
 </head>
 
 <cfif isDefined("form.submitLogin")>
-	<cfdump var='#application#'>
-	<cfset loggedIn = application.loginService.doLogin(form.username,form.password) />
-	<cfif structKeyExists(session,'stLoggedInUser')>
-		<cflocation url="surveys.cfm">
+	<cfif refind('[A-Z]', form.password)
+	AND refind('[a-z], form.password)
+	AND refind('[0-9]', form.password)
+	AND refind('[!@##$&*]', form.password))>
+		<h1 class="text-center">Password does not meet RegEx criteria.  Please try again.</h1>	
+	<cfelse>
+		<cfset loggedIn = application.loginService.doLogin(form.username,form.password) />
+		<cfif structKeyExists(session,'stLoggedInUser')>
+			<cflocation url="surveys.cfm">
+		</cfif>
 	</cfif>
 </cfif>
 
