@@ -63,7 +63,7 @@
                             <a href="#">Profile</a>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, XXXX
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <cfoutput>#Session.userFname#</cfoutput>
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">

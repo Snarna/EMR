@@ -44,7 +44,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Profile</a></li>
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, XXXX <b class="caret"></b></a>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <cfoutput>#Session.userFname#</cfoutput> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><i class="icon-envelope"></i>Support</a></li>
                             <li class="divider"></li>
@@ -57,30 +57,20 @@
     </nav>
 
     <div class="container-fluid">
-        <div class="col-sm-3 col-md-2 sidebar collapse in" id="sidebar">
-          <ul class="nav nav-sidebar">
-              <li><a href="../pages/patients.cfm">All Surveys<span class="sr-only">(current)</span></a></li>
-              <li class="active"><a href="../pages/surveydetail.cfm">Survey Deatil</a></li>
-              <li><a href="../pages/patientdetail.cfm">Patient Detail</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-
-              <li><a href="../pages/entercd4.cfm">Enter CD4</a></li>
-              <li><a href="../pages/enterviralload.cfm">Enter Viral Load</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Survey Detail</h1>
-            <div class="row">
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="surveyIdInput" placeholder="Survey ID" required>
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button">Search</button>
-                    </span>
-                  </div>
-            </div>
-            <br>
-
+      <div class="row">
+          <ol class="breadcrumb">
+              <li>
+                  <a href="patients.cfm">Patients</a>
+              </li>
+              <li class="active">Details</li>
+          </ol>
+      </div>
+        <div class="main">
+          <div class="row">
+              <div class="col-sm-12">
+                  <h1 class="page-header">Survey Detail</h1>
+              </div>
+          </div>
             <!--Patient Information Section -->
             <div class="row">
               <h2>Patient Information:</h2>
