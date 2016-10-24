@@ -9,7 +9,7 @@
         <meta name="description" content="EMR User Home Page">
         <meta name="author" content="Snarna">
 
-        <title>Client Home Page</title>
+        <title>Patient Detail Page</title>
 
         <!-- Bootstrap core CSS -->
         <link href="../css/bootstrap-cerulean.min.css" rel="stylesheet">
@@ -31,6 +31,14 @@
 
             function viewPatientSurveyDetail(surveyId){
                 window.location.href = "../pages/surveydetail.cfm?pid=" + pid + "&surveyid=" + surveyId;
+            }
+
+            function enterCD4(){
+              window.location.href = "../pages/entercd4.cfm?pid=" + pid;
+            }
+
+            function enterViral(){
+              window.location.href = "../pages/enterviralload.cfm?pid=" + pid;
             }
 
             function getPatientDetail() {
@@ -126,7 +134,7 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#">
+                                    <a href="signin.cfm?logout">
                                         <i class="icon-off"></i>Logout</a>
                                 </li>
                             </ul>
@@ -204,10 +212,10 @@
                 <hr>
                 <div class="row">
                     <div class="col-sm-6">
-                        <button class="btn btn-primary  btn-block">View & Edit CD4</button>
+                        <button class="btn btn-primary btn-block" onclick="enterCD4()">View & Edit CD4</button>
                     </div>
                     <div class="col-sm-6">
-                        <button class="btn btn-primary btn-block">View & Edit Viral Load</button>
+                        <button class="btn btn-primary btn-block" onclick="enterViral()">View & Edit Viral Load</button>
                     </div>
                 </div>
             </div>

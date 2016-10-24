@@ -21,7 +21,7 @@
 		<cfargument name="targetPage" required="true"/>
 
 		<!-- Login Valication Control -->
-		<cfif #targetPage# NEQ "/EMR/classes/auth/loginService.cfc" AND #targetPage# NEQ "/EMR/pages/signin.cfm" AND #targetPage# NEQ "/EMR/pages/signup.cfm">
+		<cfif #targetPage# NEQ "/EMR/classes/auth/loginService.cfc" AND #targetPage# NEQ "/EMR/pages/signin.cfm" AND #targetPage# NEQ "/EMR/pages/signup.cfm" AND #targetPage# NEQ "/EMR/classes/api/emrApp.cfc">
 			<cfif NOT StructKeyExists(session, "providerEmail")>
 				<cflocation url="signin.cfm" addtoken="false">
 			</cfif>
