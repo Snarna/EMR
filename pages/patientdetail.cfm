@@ -119,9 +119,6 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#">Home</a>
-                        </li>
-                        <li>
                             <a href="#">Profile</a>
                         </li>
                         <li class="dropdown">
@@ -146,9 +143,10 @@
             </div>
         </nav>
 
+        <br>
         <div class="container-fluid">
             <div class="row">
-                <ol class="breadcrumb">
+                <ol class="breadcrumb fixedUnderNav">
                     <li>
                         <a href="patients.cfm">Patients</a>
                     </li>

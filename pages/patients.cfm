@@ -115,9 +115,6 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#">Home</a>
-                        </li>
-                        <li>
                             <a href="#">Profile</a>
                         </li>
                         <li class="dropdown">
@@ -171,7 +168,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="table-responsive">
-                            <table class="table table-striped" id="patientstable">
+                            <table class="table table-hover" id="patientstable">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -181,45 +178,9 @@
                                         <th>Registered Date</th>
                                     </tr>
                                 </thead>
-                                <tbody id="patientstablebody"></tbody>
+                                <tbody id="patientstablebody" class="cursor-pointer"></tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-5">
-                        Showing 1 to 10 of
-                        <span id="patientcount"></span>
-                        patient entries
-                    </div>
-                    <div class="col-sm-7">
-                        <ul class="pagination">
-                            <li>
-                                <a href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="active">
-                                <a href="#">1</a>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">5</a>
-                            </li>
-                            <li>
-                                <a href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
