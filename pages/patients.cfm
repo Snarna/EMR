@@ -44,20 +44,44 @@
                 });
             }
 
-            function getPatients() {
-                $.ajax({
-                    url: "../classes/patient/getPatients.cfc",
-                    data: {
-                        method: "getPatients"
-                    },
-                    success: function (data) {
-                        $("#patientstablebody").html(data);
-                        $("#patientstable tbody tr").click(conf)
-                    },
-                    error: function (error) {
-                        console.log("Error!" + error);
+            function getPatients(opt) {
+                if (opt['method'] == "default") {
+                    $.ajax({
+                        url: "../classes/patient/getPatients.cfc",
+                        data: {
+                            method: "getPatients"
+                        },
+                        success: function (data) {
+                            $("#patientstablebody").html(data);
+                            $("#patientstable tbody tr").click(conf)
+                        },
+                        error: function (error) {
+                            console.log("Error!" + error);
+                        }
+                    });
+                } else if (opt['method'] == "search") {
+                    var searchInput = $("#searchInput").val();
+
+                    if (searchInput) {
+                        $.ajax({
+                            url: "../classes/patient/searchPatients.cfc",
+                            data: {
+                                method: "searchPatients",
+                                by: opt['by'],
+                                searchInput: searchInput
+                            },
+                            success: function (data) {
+                                $("#patientstablebody").html(data);
+                                $("#patientstable tbody tr").click(conf);
+                            },
+                            error: function (error) {
+                                console.log("Error!" + error);
+                            }
+                        });
+                    } else {
+                        getPatients({"method": "default"});
                     }
-                });
+                }
             }
 
             function callModal($patientId, $patientId) {
@@ -79,7 +103,9 @@
             }
 
             function conf() {
-                var pid = $($(this).children().get(0)).html();
+              pid = $($(this).children().get(0)).html();
+              window.location.href = "../pages/patientdetail.cfm?pid=" + pid;
+                /*var pid = $($(this).children().get(0)).html();
                 var fname = $($(this).children().get(1)).html();
                 var lname = $($(this).children().get(2)).html();
                 var dob = $($(this).children().get(3)).html();
@@ -89,12 +115,22 @@
                 $("#confModalDetailButton").click(function () {
                     window.location.href = "../pages/patientdetail.cfm?pid=" + pid;
                 });
-                $("#confModal").modal('show');
+                $("#confModal").modal('show');*/
             }
 
             $(document).ready(function () {
+                //Count Total Patients
                 countPatients();
-                getPatients();
+                //Get All Patients
+                getPatients({"method": "default"});
+                //Search Patients
+                $("#searchButton").click(function () {
+                    getPatients({"method": "search", "by": "id"});
+                });
+                //Onclick Select All
+                $("#searchInput").click(function () {
+                    $("#searchInput").select();
+                });
             });
         </script>
     </head>
@@ -157,9 +193,9 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="ID / Name">
+                            <input type="text" class="form-control" placeholder="ID / Name" id="searchInput">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Search</button>
+                                <button class="btn btn-default" type="button" id="searchButton">Search</button>
                             </span>
                         </div>
                     </div>
