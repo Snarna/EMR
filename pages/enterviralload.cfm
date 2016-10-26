@@ -53,11 +53,61 @@
                 });
             }
 
+            function getHistory(){
+              $.ajax({
+                  url: "../classes/patient/viralLoadService.cfc",
+                  data: {
+                      method: "getVL",
+                      pid: pid
+                  },
+                  dataType: "json",
+                  success: function (data) {
+                      $("#vlhistory").html(data);
+                  },
+                  error: function (error) {
+                      console.log("Error!:" + error);
+                  }
+              });
+            }
+
             $(document).ready(function () {
               $( function() {
-                $( "#date" ).datepicker();
+                $( "#vldate" ).datepicker();
               });
                 getPatientDetail();
+                getHistory();
+                $("form").submit(function (event) {
+                    //Prevent Submit
+                    event.preventDefault();
+
+                    //Get Information From Form
+                    var vlNum = $("#vlnum").val();
+                    var vlDate = $("#vldate").val();
+                    var vlNotes = $("#vlnotes").val();
+
+                    if (vlNum && vlDate) {
+                        $.ajax({
+                            url: "../classes/patient/viralLoadService.cfc",
+                            type: "POST",
+                            data: {
+                                method: "insertVL",
+                                pid: pid,
+                                vlTest: vlNum,
+                                vlDate: vlDate,
+                                vlNotes: vlNotes
+                            },
+                            success: function (data) {
+                              if(data != ""){
+                                var newRow = "<tr><td>"+ data +"</td><td>" + vlNum + "</td><td>" + vlDate + "</td><td>" + vlNotes + "</td></tr>";
+                                $("#vltable tr:last").after(newRow);
+                              }
+                            },
+                            error: function (err) {
+                                responseErrMsg("Error:" + err);
+                            }
+                        });
+                    }
+                });
             });
         </script>
     </head>
@@ -144,8 +194,20 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-12" id="vlhistory">
+                <div class="col-sm-12">
+                  <table class="table" id="vltable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Viral Load Number</th>
+                        <th>Date</th>
+                        <th>Notes</th>
+                      </tr>
+                    </thead>
+                    <tbody id="vlhistory">
 
+                    </tbody>
+                  </table>
                 </div>
               </div>
               <hr>
@@ -165,13 +227,13 @@
                             </div>
                             <div class="col-sm-6">
                               <label for="patientId">Date*:</label>
-                              <input type="text" class="form-control" id="date" required>
+                              <input type="text" class="form-control" id="vldate" required>
                             </div>
                           </div>
                         </div>
                         <div class="form-group">
                             <label for="notes">Viral Load Notes:</label>
-                            <textarea class="form-control" id="notes" rows="3"></textarea>
+                            <textarea class="form-control" id="vlnotes" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     </form>

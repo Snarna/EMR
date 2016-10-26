@@ -53,11 +53,62 @@
                 });
             }
 
+            function getHistory(){
+              $.ajax({
+                  url: "../classes/patient/cd4Service.cfc",
+                  data: {
+                      method: "getCD4",
+                      pid: pid
+                  },
+                  dataType: "json",
+                  success: function (data) {
+                      $("#cd4history").html(data);
+                  },
+                  error: function (error) {
+                      console.log("Error!:" + error);
+                  }
+              });
+            }
+
             $(document).ready(function () {
               $( function() {
-                $( "#date" ).datepicker();
+                $( "#cd4date" ).datepicker();
               });
-                getPatientDetail();
+              getPatientDetail();
+              getHistory();
+              $("form").submit(function (event) {
+                  //Prevent Submit
+                  event.preventDefault();
+
+                  //Get Information From Form
+                  var cd4Num = $("#cd4num").val();
+                  var cd4Date = $("#cd4date").val();
+                  var cd4Notes = $("#cd4notes").val();
+
+                  if (cd4Num && cd4Date) {
+                      $.ajax({
+                          url: "../classes/patient/cd4Service.cfc",
+                          type: "POST",
+                          data: {
+                              method: "insertCD4",
+                              pid: pid,
+                              cd4Test: cd4Num,
+                              cd4Date: cd4Date,
+                              cd4Notes: cd4Notes
+                          },
+                          success: function (data) {
+                            if(data != ""){
+                              var newRow = "<tr><td>"+ data +"</td><td>" + cd4Num + "</td><td>" + cd4Date + "</td><td>" + cd4Notes + "</td></tr>";
+                              $("#cd4table tr:last").after(newRow);
+                            }
+                          },
+                          error: function (err) {
+                              responseErrMsg("Error:" + err);
+                          }
+                      });
+                  }
+              });
+
             });
         </script>
     </head>
@@ -144,8 +195,20 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-12" id="cd4history">
+                <div class="col-sm-12">
+                  <table class="table" id="cd4table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>CD4 Number</th>
+                        <th>Date</th>
+                        <th>Notes</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cd4history">
 
+                    </tbody>
+                  </table>
                 </div>
               </div>
               <hr>
@@ -165,13 +228,13 @@
                             </div>
                             <div class="col-sm-6">
                               <label for="patientId">Date*:</label>
-                              <input type="text" class="form-control" id="date" required>
+                              <input type="text" class="form-control" id="cd4date" required>
                             </div>
                           </div>
                         </div>
                         <div class="form-group">
                             <label for="notes">CD4 Notes:</label>
-                            <textarea class="form-control" id="notes" rows="3"></textarea>
+                            <textarea class="form-control" id="cd4notes" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     </form>
