@@ -10,6 +10,8 @@
         <meta name="author" content="Snarna">
 
         <title>Patient Home Page</title>
+        <!-- My Css -->
+        <link href="../css/mycss.css" rel="stylesheet">
 
         <!-- Bootstrap core CSS -->
         <link href="../css/bootstrap-cerulean.min.css" rel="stylesheet">
@@ -140,9 +142,10 @@
             </div>
         </nav>
 
+        <br>
         <div class="container-fluid">
             <div class="row">
-                <ol class="breadcrumb">
+                <ol class="breadcrumb fixedUnderNav">
                     <li>
                         <a href="patients.cfm">Patients</a>
                     </li>

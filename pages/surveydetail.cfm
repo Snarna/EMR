@@ -10,6 +10,8 @@
         <meta name="author" content="Snarna">
 
         <title>Survey Details Page</title>
+        <!-- My Css -->
+        <link href="../css/mycss.css" rel="stylesheet">
 
         <!-- Bootstrap core CSS -->
         <link href="../css/bootstrap-cerulean.min.css" rel="stylesheet">
