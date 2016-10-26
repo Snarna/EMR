@@ -10,6 +10,8 @@
         <meta name="author" content="Snarna">
 
         <title>Viral Load Page</title>
+        <!-- My Css -->
+        <link href="../css/mycss.css" rel="stylesheet">
 
         <!-- Bootstrap core CSS -->
         <link href="../css/bootstrap-cerulean.min.css" rel="stylesheet">
@@ -20,23 +22,92 @@
         <!-- Animate CSS -->
         <link href="../css/animate.css" rel="stylesheet">
 
+        <!-- JQuery-UI CSS -->
+        <link href="../css/jquery-ui.min.css" rel="stylesheet">
+
         <!-- Bootstrap core JavaScript -->
         <script src="../js/jquery-3.1.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/jquery-ui.min.js"></script>
 
         <!-- My Script -->
         <script src="../js/miscScript.js"></script>
         <script>
-            function getPatientInfo() {
-                var tempPatientId = getUrlParameter('patientId');
-                if (tempPatientId != "") {
-                    $("#patientId").val(tempPatientId);
-                }
+            var pid = <cfoutput>#url.pid#</cfoutput>;
+
+            function getPatientDetail() {
+                $.ajax({
+                    url: "../classes/patient/getPatientDetail.cfc",
+                    data: {
+                        method: "getPatientDetail",
+                        pid: pid
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#name").html(data.fname + " " + data.lname);
+                        $("#dob").html(data.dob);
+                    },
+                    error: function (error) {
+                        console.log("Error!:" + error);
+                    }
+                });
+            }
+
+            function getHistory(){
+              $.ajax({
+                  url: "../classes/patient/viralLoadService.cfc",
+                  data: {
+                      method: "getVL",
+                      pid: pid
+                  },
+                  dataType: "json",
+                  success: function (data) {
+                      $("#vlhistory").html(data);
+                  },
+                  error: function (error) {
+                      console.log("Error!:" + error);
+                  }
+              });
             }
 
             $(document).ready(function () {
-                //Call Get Patient Info
-                getPatientInfo();
+              $( function() {
+                $( "#vldate" ).datepicker();
+              });
+                getPatientDetail();
+                getHistory();
+                $("form").submit(function (event) {
+                    //Prevent Submit
+                    event.preventDefault();
+
+                    //Get Information From Form
+                    var vlNum = $("#vlnum").val();
+                    var vlDate = $("#vldate").val();
+                    var vlNotes = $("#vlnotes").val();
+
+                    if (vlNum && vlDate) {
+                        $.ajax({
+                            url: "../classes/patient/viralLoadService.cfc",
+                            type: "POST",
+                            data: {
+                                method: "insertVL",
+                                pid: pid,
+                                vlTest: vlNum,
+                                vlDate: vlDate,
+                                vlNotes: vlNotes
+                            },
+                            success: function (data) {
+                              if(data != ""){
+                                var newRow = "<tr><td>"+ data +"</td><td>" + vlNum + "</td><td>" + vlDate + "</td><td>" + vlNotes + "</td></tr>";
+                                $("#vltable tr:last").after(newRow);
+                              }
+                            },
+                            error: function (err) {
+                                responseErrMsg("Error:" + err);
+                            }
+                        });
+                    }
+                });
             });
         </script>
     </head>
@@ -52,13 +123,10 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">EMR Home</a>
+                    <a class="navbar-brand" href="#">EMR</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#">Home</a>
-                        </li>
                         <li>
                             <a href="#">Profile</a>
                         </li>
@@ -74,7 +142,7 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="signin.cfm/logout">
+                                    <a href="signin.cfm?logout">
                                         <i class="icon-off"></i>Logout</a>
                                 </li>
                             </ul>
@@ -84,44 +152,92 @@
             </div>
         </nav>
 
+        <br>
         <div class="container-fluid">
-            <div class="col-sm-3 col-md-2 sidebar collapse in" id="sidebar">
-                <ul class="nav nav-sidebar">
-                    <li>
-                        <a href="../pages/patients.cfm">All Surveys<span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../pages/surveydetail.cfm">Survey Deatil</a>
-                    </li>
-                    <li>
-                        <a href="../pages/patientdetail.cfm">Patient Detail</a>
-                    </li>
-                </ul>
-                <ul class="nav nav-sidebar">
+          <div class="row">
+              <ol class="breadcrumb fixedUnderNav">
+                  <li>
+                      <a href="patients.cfm">Patients</a>
+                  </li>
+                  <li><a href="patientdetail.cfm?pid=<cfoutput>#url.pid#</cfoutput>">Details</a></li>
+                  <li class="active">
+                    Viral Load
+                  </li>
+              </ol>
+          </div>
+            <div class="main">
+              <div class="row ">
+                <div class="col-sm-12">
+                  <h1 class="page-header">Viral Load Information</h1>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-2">
+                      <strong>Name:</strong>
+                  </div>
+                  <div class="col-sm-10">
+                      <span id="name"></span>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-2">
+                      <strong>Date of Birth:</strong>
+                  </div>
+                  <div class="col-sm-10">
+                      <span id="dob"></span>
+                  </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-12">
+                  <h3>History</h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <table class="table" id="vltable">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Viral Load Number</th>
+                        <th>Date</th>
+                        <th>Notes</th>
+                      </tr>
+                    </thead>
+                    <tbody id="vlhistory">
 
-                    <li class="active">
-                        <a href="../pages/entercd4.cfm">Enter CD4</a>
-                    </li>
-                    <li>
-                        <a href="../pages/enterviralload.cfm">Enter Viral Load</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">Enter Viral Load Information:</h1>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <hr>
                 <div class="row">
+                  <div class="col-sm-12">
+                    <h3>Enter New Record</h3>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
                     <form id="vlform">
                         <div class="form-group">
-                            <label for="patientId">Patient ID*:</label>
-                            <input type="text" class="form-control" id="patientId" required>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <label for="patientId">Viral Load Number*:</label>
+                              <input type="number" class="form-control" id="vlnum" required>
+                            </div>
+                            <div class="col-sm-6">
+                              <label for="patientId">Date*:</label>
+                              <input type="text" class="form-control" id="vldate" required>
+                            </div>
+                          </div>
                         </div>
                         <div class="form-group">
-                            <label for="notes">Viral Load Information*:</label>
-                            <textarea class="form-control" id="notes" rows="3"></textarea>
+                            <label for="notes">Viral Load Notes:</label>
+                            <textarea class="form-control" id="vlnotes" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     </form>
+                  </div>
                 </div>
             </div>
         </div>
