@@ -31,10 +31,23 @@
 
 		<cfloop query="getCD4Query">
 			<cfset var response &="<tr>">
-			<cfset var response &="<td>" & #cd4testid# & "</td><td>" & #cd4testnum# & "</td><td>" & #cd4testdate# & "</td><td>" & #cd4testnotes# & "</td>">
+			<cfset var response &="<td>" & #cd4testid# & "</td><td>" & #cd4testnum# & "</td><td>" & #cd4testdate# & "</td><td>" & #cd4testnotes# & "</td><td><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td>">
 		</cfloop>
 
 		<cfreturn response>
+	</cffunction>
+
+	<cffunction name="editCD4" access="remote" returnformat="json" returnType="any">
+		<cfargument name="newNum" type="numeric" required="true"/>
+		<cfargument name="newNotes" type="string" required="true"/>
+		<cfargument name="cd4Id" type="numeric" required="true"/>
+
+		<cfquery name="editCD4Query" datasource="emrdb">
+			UPDATE cd4testData
+			SET cd4testnum = '#newNum#', cd4testnotes = '#newNotes#'
+			WHERE cd4testid = '#cd4Id#'
+		</cfquery>
+
 	</cffunction>
 
 </cfcomponent>

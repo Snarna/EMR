@@ -70,6 +70,39 @@
               });
             }
 
+            function edit(btn){
+              var tr = $(btn).closest("tr").find("td");
+              var oldNum = $(tr[1]).html();
+              var oldNotes = $(tr[3]).html();
+              $(tr[1]).html("<input class='input' type='number' value='"+oldNum+"'></input>");
+              $(tr[3]).html("<input class='input' type='text' value='"+oldNotes+"'></input>");
+              $(btn).replaceWith("<button class='btn btn-xs btn-primary' onclick='save(this);'>Save</button>");
+            }
+
+            function save(btn){
+              var tr = $(btn).closest("tr").find("td");
+              var cd4Id = $($(tr[0])).html();
+              var newNum = $($(tr[1]).find("input")[0]).val();
+              var newNotes = $($(tr[3]).find("input")[0]).val();
+              $.ajax({
+                  url: "../classes/patient/cd4Service.cfc",
+                  data: {
+                      method: "editCD4",
+                      newNum: newNum,
+                      newNotes: newNotes,
+                      cd4Id: cd4Id
+                  },
+                  success: function (data) {
+                    $(tr[1]).html(newNum);
+                    $(tr[3]).html(newNotes);
+                    $(btn).replaceWith("<button class='btn btn-xs' onclick='edit(this);'>Edit</button>");
+                  },
+                  error: function (error) {
+                      console.log("Error!:" + JSON.stringify(error));
+                  }
+              });
+            }
+
             $(document).ready(function () {
               $( function() {
                 $( "#cd4date" ).datepicker();
@@ -98,7 +131,7 @@
                           },
                           success: function (data) {
                             if(data != ""){
-                              var newRow = "<tr><td>"+ data +"</td><td>" + cd4Num + "</td><td>" + cd4Date + "</td><td>" + cd4Notes + "</td></tr>";
+                              var newRow = "<tr><td>"+ data +"</td><td>" + cd4Num + "</td><td>" + cd4Date + "</td><td>" + cd4Notes + "</td><td><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td></tr>";
                               $("#cd4table tr:last").after(newRow);
                             }
                           },
@@ -203,6 +236,7 @@
                         <th>CD4 Number</th>
                         <th>Date</th>
                         <th>Notes</th>
+                        <th>Edit</th>
                       </tr>
                     </thead>
                     <tbody id="cd4history">
