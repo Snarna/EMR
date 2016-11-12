@@ -133,6 +133,7 @@
                             if(data != ""){
                               var newRow = "<tr><td>"+ data +"</td><td>" + cd4Num + "</td><td>" + cd4Date + "</td><td>" + cd4Notes + "</td><td><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td></tr>";
                               $("#cd4table tr:last").after(newRow);
+                              $(':input', '#cd4form').not(':button, :submit, :reset, :hidden').removeAttr('checked').removeAttr('selected').not('‌​:checkbox, :radio, select').val('');
                             }
                           },
                           error: function (err) {

@@ -70,6 +70,39 @@
               });
             }
 
+            function edit(btn){
+              var tr = $(btn).closest("tr").find("td");
+              var oldNum = $(tr[1]).html();
+              var oldNotes = $(tr[3]).html();
+              $(tr[1]).html("<input class='form-control input-sm input-slim' type='number' value='"+oldNum+"'></input>");
+              $(tr[3]).html("<input class='form-control input-sm' type='text' value='"+oldNotes+"'></input>");
+              $(btn).replaceWith("<button class='btn btn-xs btn-primary' onclick='save(this);'>Save</button>");
+            }
+
+            function save(btn){
+              var tr = $(btn).closest("tr").find("td");
+              var viralLoadId = $($(tr[0])).html();
+              var newNum = $($(tr[1]).find("input")[0]).val();
+              var newNotes = $($(tr[3]).find("input")[0]).val();
+              $.ajax({
+                  url: "../classes/patient/viralLoadService.cfc",
+                  data: {
+                      method: "editViralLoad",
+                      newNum: newNum,
+                      newNotes: newNotes,
+                      viralLoadId: viralLoadId
+                  },
+                  success: function (data) {
+                    $(tr[1]).html(newNum);
+                    $(tr[3]).html(newNotes);
+                    $(btn).replaceWith("<button class='btn btn-xs' onclick='edit(this);'>Edit</button>");
+                  },
+                  error: function (error) {
+                      console.log("Error!:" + JSON.stringify(error));
+                  }
+              });
+            }
+
             $(document).ready(function () {
               $( function() {
                 $( "#vldate" ).datepicker();
@@ -98,8 +131,9 @@
                             },
                             success: function (data) {
                               if(data != ""){
-                                var newRow = "<tr><td>"+ data +"</td><td>" + vlNum + "</td><td>" + vlDate + "</td><td>" + vlNotes + "</td></tr>";
+                                var newRow = "<tr><td class='col-sm-2'>"+ data +"</td><td class='col-sm-2'>" + vlNum + "</td><td class='col-sm-3'>" + vlDate + "</td><td class='col-sm-4'>" + vlNotes + "</td><td class='col-sm-1'><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td></tr>";
                                 $("#vltable tr:last").after(newRow);
+                                $(':input', '#vlform').not(':button, :submit, :reset, :hidden').removeAttr('checked').removeAttr('selected').not('‌​:checkbox, :radio, select').val('');
                               }
                             },
                             error: function (err) {
@@ -202,6 +236,7 @@
                         <th>Viral Load Number</th>
                         <th>Date</th>
                         <th>Notes</th>
+                        <th>Edit</th>
                       </tr>
                     </thead>
                     <tbody id="vlhistory">

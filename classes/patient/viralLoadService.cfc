@@ -31,10 +31,23 @@
 
 		<cfloop query="getViralLoadQuery">
 			<cfset var response &="<tr>">
-			<cfset var response &="<td>" & #loadtestid# & "</td><td>" & #loadtestnum# & "</td><td>" & #loadtestdate# & "</td><td>" & #loadtestnotes# & "</td>">
+			<cfset var response &="<td class='col-sm-2'>" & #loadtestid# & "</td><td class='col-sm-2'>" & #loadtestnum# & "</td><td class='col-sm-3'>" & #DateFormat(loadtestdate, "mm/dd/yyyy")# & "</td><td class='col-sm-4'>" & #loadtestnotes# & "</td><td class='col-sm-1' ><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td>">
 		</cfloop>
 
 		<cfreturn response>
+	</cffunction>
+
+	<cffunction name="editViralLoad" access="remote" returnformat="json" returnType="any">
+		<cfargument name="newNum" type="numeric" required="true"/>
+		<cfargument name="newNotes" type="string" required="true"/>
+		<cfargument name="viralLoadId" type="numeric" required="true"/>
+
+		<cfquery name="editViralLoadQuery" datasource="emrdb">
+			UPDATE loadtestData
+			SET loadtestnum = '#newNum#', loadtestnotes = '#newNotes#'
+			WHERE loadtestid = '#viralLoadId#'
+		</cfquery>
+
 	</cffunction>
 
 </cfcomponent>

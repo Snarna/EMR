@@ -31,7 +31,7 @@
 
 		<cfloop query="getCD4Query">
 			<cfset var response &="<tr>">
-			<cfset var response &="<td>" & #cd4testid# & "</td><td>" & #cd4testnum# & "</td><td>" & #DateFormat(cd4testdate, "mm/dd/yyyy")# & "</td><td>" & #cd4testnotes# & "</td><td><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td>">
+			<cfset var response &="<td class='col-sm-2'>" & #cd4testid# & "</td><td class='col-sm-2'>" & #cd4testnum# & "</td><td class='col-sm-3'>" & #DateFormat(cd4testdate, "mm/dd/yyyy")# & "</td><td class='col-sm-4'>" & #cd4testnotes# & "</td><td class='col-sm-1'><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td>">
 		</cfloop>
 
 		<cfreturn response>
