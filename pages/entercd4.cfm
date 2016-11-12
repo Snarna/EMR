@@ -105,7 +105,10 @@
 
             $(document).ready(function () {
               $( function() {
-                $( "#cd4date" ).datepicker();
+                $( "#cd4date" ).datepicker({
+                  changeMonth: true,
+                  changeYear: true
+                });
               });
               getPatientDetail();
               getHistory();

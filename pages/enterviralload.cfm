@@ -105,7 +105,10 @@
 
             $(document).ready(function () {
               $( function() {
-                $( "#vldate" ).datepicker();
+                $( "#vldate" ).datepicker({
+                  changeMonth: true,
+                  changeYear: true
+                });
               });
                 getPatientDetail();
                 getHistory();
