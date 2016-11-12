@@ -18,7 +18,7 @@
 
         <cfloop query="patientQuery">
             <cfset var response &="<tr>">
-            <cfset var response &="<td>" & #patientid# & "</td><td>" & #pfname# & "</td><td>" & #plname# & "</td><td>" & #pdob# & "</td><td>N/A</td>">
+            <cfset var response &="<td>" & #patientid# & "</td><td>" & #pfname# & "</td><td>" & #plname# & "</td><td>" & #DateFormat(pdob, 'mm/dd/yyyy')# & "</td><td>N/A</td>">
         </cfloop>
 
         <cfreturn response>
