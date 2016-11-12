@@ -8,3 +8,7 @@ ol.fixedUnderNav{
 .cursor-pointer{
   cursor:pointer;
 }
+
+.tableFixHeight{
+  height: 430px;
+}

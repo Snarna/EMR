@@ -9,10 +9,11 @@
     </cffunction>
 
     <cffunction name="getPatients" access="remote" returnformat="json" returntype="any">
+        <cfargument name="startNum" type="numeric"required="yes">
         <cfset var response="">
 
         <cfquery name="patientQuery" datasource="emrdb">
-            SELECT * FROM patientsData
+            SELECT * FROM patientsData LIMIT #startNum# , 10
         </cfquery>
 
         <cfloop query="patientQuery">
