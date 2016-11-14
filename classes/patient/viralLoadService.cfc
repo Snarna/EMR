@@ -23,12 +23,12 @@
 			WHERE loadtestid = #newId#
 		</cfquery>
 
-		<cfset var response ="<tr><td class='col-sm-1'>" & #getViralLoadQuery.cd4testid# & "</td>
-													 <td class='col-sm-1'>" & #getViralLoadQuery.cd4testnum# & "</td>
-													 <td class='col-sm-2'>" & #DateFormat(getViralLoadQuery.cd4testdate, "mm/dd/yyyy")# & "</td>
-													 <td class='col-sm-3'>" & #getViralLoadQuery.cd4testnotes# & "</td>
-													 <td class='col-sm-2'>" & #DateTimeFormat(getViralLoadQuery.cd4testenterdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
-													 <td class='col-sm-2'>" & #DateTimeFormat(getViralLoadQuery.cd4testeditdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
+		<cfset var response ="<tr><td class='col-sm-1'>" & #getViralLoadQuery.loadtestid# & "</td>
+													 <td class='col-sm-1'>" & #getViralLoadQuery.loadtestnum# & "</td>
+													 <td class='col-sm-2'>" & #DateFormat(getViralLoadQuery.loadtestdate, "mm/dd/yyyy")# & "</td>
+													 <td class='col-sm-3'>" & #getViralLoadQuery.loadtestnotes# & "</td>
+													 <td class='col-sm-2'>" & #DateTimeFormat(getViralLoadQuery.loadtestenterdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
+													 <td class='col-sm-2'>" & #DateTimeFormat(getViralLoadQuery.loadtesteditdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
 													 <td class='col-sm-1'><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td></tr>">
 	  <cfreturn response>
 	</cffunction>
@@ -75,12 +75,12 @@
 			WHERE loadtestid = #viralLoadId#
 		</cfquery>
 
-		<cfset var response ="<td class='col-sm-1'>" & #getViralLoadQuery.cd4testid# & "</td>
-													 <td class='col-sm-1'>" & #getViralLoadQuery.cd4testnum# & "</td>
-													 <td class='col-sm-2'>" & #DateFormat(getViralLoadQuery.cd4testdate, "mm/dd/yyyy")# & "</td>
-													 <td class='col-sm-3'>" & #getViralLoadQuery.cd4testnotes# & "</td>
-													 <td class='col-sm-2'>" & #DateTimeFormat(getViralLoadQuery.cd4testenterdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
-													 <td class='col-sm-2'>" & #DateTimeFormat(getViralLoadQuery.cd4testeditdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
+		<cfset var response ="<td class='col-sm-1'>" & #getViralLoadQuery.loadtestid# & "</td>
+													 <td class='col-sm-1'>" & #getViralLoadQuery.loadtestnum# & "</td>
+													 <td class='col-sm-2'>" & #DateFormat(getViralLoadQuery.loadtestdate, "mm/dd/yyyy")# & "</td>
+													 <td class='col-sm-3'>" & #getViralLoadQuery.loadtestnotes# & "</td>
+													 <td class='col-sm-2'>" & #DateTimeFormat(getViralLoadQuery.loadtestenterdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
+													 <td class='col-sm-2'>" & #DateTimeFormat(getViralLoadQuery.loadtesteditdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
 													 <td class='col-sm-1'><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td>">
 	  <cfreturn response>
 	</cffunction>

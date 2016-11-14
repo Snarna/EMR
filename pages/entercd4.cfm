@@ -76,9 +76,9 @@
               var oldNum = $(tds[1]).html();
               var oldDate = $(tds[2]).html();
               var oldNotes = $(tds[3]).html();
-              $(tds[1]).html("<input class='form-control input-sm' type='number' value='"+oldNum+"'>");
-              $(tds[2]).html("<input class='form-control input-sm' type='text' value='"+oldDate+"'>");
-              $(tds[3]).html("<input class='form-control input-sm' type='text' value='"+oldNotes+"'>");
+              $(tds[1]).html("<div class='form-group form-group-sm'><input class='form-control input-sm' type='number' min='0' value='"+oldNum+"'></div>");
+              $(tds[2]).html("<div class='form-group form-group-sm'><input class='form-control input-sm' type='text' value='"+oldDate+"'></div>");
+              $(tds[3]).html("<div class='form-group form-group-sm'><input class='form-control input-sm' type='text' value='"+oldNotes+"'></div>");
               $($(tds[2]).find("input")[0]).datepicker({
                 changeMonth: true,
                 changeYear: true
@@ -93,22 +93,35 @@
               var newNum = $($(tds[1]).find("input")[0]).val();
               var newDate = $($(tds[2]).find("input")[0]).val();
               var newNotes = $($(tds[3]).find("input")[0]).val();
-              $.ajax({
-                  url: "../classes/patient/cd4Service.cfc",
-                  data: {
-                      method: "editCD4",
-                      newNum: newNum,
-                      newDate: newDate,
-                      newNotes: newNotes,
-                      cd4Id: cd4Id
-                  },
-                  success: function (data) {
-                    tr.html(data);
-                  },
-                  error: function (error) {
-                      console.log("Error!:" + JSON.stringify(error));
-                  }
-              });
+              //Remove has-error
+              $($(tds[1]).find("div").removeClass("has-error"));
+              $($(tds[2]).find("div").removeClass("has-error"));
+              if(newNum && newDate){
+                $.ajax({
+                    url: "../classes/patient/cd4Service.cfc",
+                    data: {
+                        method: "editCD4",
+                        newNum: newNum,
+                        newDate: newDate,
+                        newNotes: newNotes,
+                        cd4Id: cd4Id
+                    },
+                    success: function (data) {
+                      tr.html(data);
+                    },
+                    error: function (error) {
+                        console.log("Error!:" + JSON.stringify(error));
+                    }
+                });
+              }
+              else{
+                if(newNum == ""){
+                  $($(tds[1]).find("div").addClass("has-error"));
+                }
+                if(newDate == ""){
+                  $($(tds[2]).find("div").addClass("has-error"));
+                }
+              }
             }
 
             $(document).ready(function () {

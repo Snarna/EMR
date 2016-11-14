@@ -72,13 +72,13 @@
 
             function edit(btn){
               var tr = $(btn).closest("tr");
-              var tds = $(tr).find("tr");
+              var tds = $(tr).find("td");
               var oldNum = $(tds[1]).html();
               var oldDate = $(tds[2]).html();
               var oldNotes = $(tds[3]).html();
-              $(tds[1]).html("<input class='form-control input-sm input-slim' type='number' value='"+oldNum+"'>");
-              $(tds[2]).html("<input class='form-control input-sm' type='text' value='"+oldDate+"'>");
-              $(tds[3]).html("<input class='form-control input-sm' type='text' value='"+oldNotes+"'>");
+              $(tds[1]).html("<div class='form-group form-group-sm'><input class='form-control input-sm input-slim' type='number'  min='0' value='"+oldNum+"' required></div>");
+              $(tds[2]).html("<div class='form-group form-group-sm'><input class='form-control input-sm' type='text' value='"+oldDate+"' required></div>");
+              $(tds[3]).html("<div class='form-group form-group-sm'><input class='form-control input-sm' type='text' value='"+oldNotes+"' required></div>");
               $($(tds[2]).find("input")[0]).datepicker({
                 changeMonth: true,
                 changeYear: true
@@ -91,24 +91,37 @@
               var tds = $(tr).find("td");
               var viralLoadId = $($(tds[0])).html();
               var newNum = $($(tds[1]).find("input")[0]).val();
+              var newDate = $($(tds[2]).find("input")[0]).val();
               var newNotes = $($(tds[3]).find("input")[0]).val();
-              $.ajax({
-                  url: "../classes/patient/viralLoadService.cfc",
-                  data: {
-                      method: "editViralLoad",
-                      newNum: newNum,
-                      newNotes: newNotes,
-                      viralLoadId: viralLoadId
-                  },
-                  success: function (data) {
-                    $(tds[1]).html(newNum);
-                    $(tds[3]).html(newNotes);
-                    $(btn).replaceWith("<button class='btn btn-xs' onclick='edit(this);'>Edit</button>");
-                  },
-                  error: function (error) {
-                      console.log("Error!:" + JSON.stringify(error));
-                  }
-              });
+              //Remove has-error
+              $($(tds[1]).find("div").removeClass("has-error"));
+              $($(tds[2]).find("div").removeClass("has-error"));
+              if(newNum && newDate){
+                $.ajax({
+                    url: "../classes/patient/viralLoadService.cfc",
+                    data: {
+                        method: "editViralLoad",
+                        newNum: newNum,
+                        newDate: newDate,
+                        newNotes: newNotes,
+                        viralLoadId: viralLoadId
+                    },
+                    success: function (data) {
+                      tr.html(data);
+                    },
+                    error: function (error) {
+                        console.log("Error!:" + JSON.stringify(error));
+                    }
+                });
+              }
+              else{
+                if(newNum == ""){
+                  $($(tds[1]).find("div").addClass("has-error"));
+                }
+                if(newDate == ""){
+                  $($(tds[2]).find("div").addClass("has-error"));
+                }
+              }
             }
 
             $(document).ready(function () {
@@ -142,8 +155,7 @@
                             },
                             success: function (data) {
                               if(data != ""){
-                                var newRow = "<tr><td class='col-sm-2'>"+ data +"</td><td class='col-sm-2'>" + vlNum + "</td><td class='col-sm-3'>" + vlDate + "</td><td class='col-sm-4'>" + vlNotes + "</td><td class='col-sm-1'><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td></tr>";
-                                $("#vltable tr:last").after(newRow);
+                                $("#vltable tr:last").after(data);
                                 $(':input', '#vlform').not(':button, :submit, :reset, :hidden').removeAttr('checked').removeAttr('selected').not('‌​:checkbox, :radio, select').val('');
                               }
                             },
@@ -244,9 +256,11 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Viral Load Number</th>
+                        <th>CD4 Number</th>
                         <th>Date</th>
                         <th>Notes</th>
+                        <th>Enter Date</th>
+                        <th>Last Edit Date</th>
                         <th>Edit</th>
                       </tr>
                     </thead>
@@ -269,7 +283,7 @@
                           <div class="row">
                             <div class="col-sm-6">
                               <label for="patientId">Viral Load Number*:</label>
-                              <input type="number" class="form-control" id="vlnum" required>
+                              <input type="number" class="form-control"  min='0' id="vlnum" required>
                             </div>
                             <div class="col-sm-6">
                               <label for="patientId">Date*:</label>
