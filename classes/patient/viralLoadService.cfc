@@ -16,7 +16,21 @@
 		</cfquery>
 
 		<cfset var newId=result.GENERATEDKEY>
-		<cfreturn newId>
+
+		<cfquery name="getViralLoadQuery" datasource="emrdb">
+			SELECT *
+			FROM loadtestData
+			WHERE loadtestid = #newId#
+		</cfquery>
+
+		<cfset var response ="<tr><td class='col-sm-1'>" & #getViralLoadQuery.cd4testid# & "</td>
+													 <td class='col-sm-1'>" & #getViralLoadQuery.cd4testnum# & "</td>
+													 <td class='col-sm-2'>" & #DateFormat(getViralLoadQuery.cd4testdate, "mm/dd/yyyy")# & "</td>
+													 <td class='col-sm-3'>" & #getViralLoadQuery.cd4testnotes# & "</td>
+													 <td class='col-sm-2'>" & #DateTimeFormat(getViralLoadQuery.cd4testenterdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
+													 <td class='col-sm-2'>" & #DateTimeFormat(getViralLoadQuery.cd4testeditdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
+													 <td class='col-sm-1'><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td></tr>">
+	  <cfreturn response>
 	</cffunction>
 
 	<cffunction name="getVL" access="remote" returnformat="json" returnType="any">
@@ -31,7 +45,13 @@
 
 		<cfloop query="getViralLoadQuery">
 			<cfset var response &="<tr>">
-			<cfset var response &="<td class='col-sm-2'>" & #loadtestid# & "</td><td class='col-sm-2'>" & #loadtestnum# & "</td><td class='col-sm-3'>" & #DateFormat(loadtestdate, "mm/dd/yyyy")# & "</td><td class='col-sm-4'>" & #loadtestnotes# & "</td><td class='col-sm-1' ><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td>">
+			<cfset var response &="<td class='col-sm-1'>" & #loadtestid# & "</td>
+														 <td class='col-sm-1'>" & #loadtestnum# & "</td>
+														 <td class='col-sm-2'>" & #DateFormat(loadtestdate, "mm/dd/yyyy")# & "</td>
+														 <td class='col-sm-3'>" & #loadtestnotes# & "</td>
+														 <td class='col-sm-2'>" & #DateTimeFormat(loadtestenterdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
+														 <td class='col-sm-2'>" & #DateTimeFormat(loadtesteditdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
+														 <td class='col-sm-1' ><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td>">
 		</cfloop>
 
 		<cfreturn response>
@@ -39,15 +59,30 @@
 
 	<cffunction name="editViralLoad" access="remote" returnformat="json" returnType="any">
 		<cfargument name="newNum" type="numeric" required="true"/>
+		<cfargument name="newDate" type="text" required="true"/>
 		<cfargument name="newNotes" type="string" required="true"/>
 		<cfargument name="viralLoadId" type="numeric" required="true"/>
 
 		<cfquery name="editViralLoadQuery" datasource="emrdb">
 			UPDATE loadtestData
-			SET loadtestnum = '#newNum#', loadtestnotes = '#newNotes#'
+			SET loadtestnum = '#newNum#', loadtestdate = '#DateFormat(newDate, "yyyy-mm-dd")#' ,loadtestnotes = '#newNotes#'
 			WHERE loadtestid = '#viralLoadId#'
 		</cfquery>
 
+		<cfquery name="getViralLoadQuery" datasource="emrdb">
+			SELECT *
+			FROM loadtestData
+			WHERE loadtestid = #viralLoadId#
+		</cfquery>
+
+		<cfset var response ="<td class='col-sm-1'>" & #getViralLoadQuery.cd4testid# & "</td>
+													 <td class='col-sm-1'>" & #getViralLoadQuery.cd4testnum# & "</td>
+													 <td class='col-sm-2'>" & #DateFormat(getViralLoadQuery.cd4testdate, "mm/dd/yyyy")# & "</td>
+													 <td class='col-sm-3'>" & #getViralLoadQuery.cd4testnotes# & "</td>
+													 <td class='col-sm-2'>" & #DateTimeFormat(getViralLoadQuery.cd4testenterdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
+													 <td class='col-sm-2'>" & #DateTimeFormat(getViralLoadQuery.cd4testeditdate, "MM/dd/yyyy HH:nn:ss")# & "</td>
+													 <td class='col-sm-1'><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td>">
+	  <cfreturn response>
 	</cffunction>
 
 </cfcomponent>

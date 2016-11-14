@@ -71,19 +71,27 @@
             }
 
             function edit(btn){
-              var tr = $(btn).closest("tr").find("td");
-              var oldNum = $(tr[1]).html();
-              var oldNotes = $(tr[3]).html();
-              $(tr[1]).html("<input class='form-control input-sm input-slim' type='number' value='"+oldNum+"'></input>");
-              $(tr[3]).html("<input class='form-control input-sm' type='text' value='"+oldNotes+"'></input>");
+              var tr = $(btn).closest("tr");
+              var tds = $(tr).find("tr");
+              var oldNum = $(tds[1]).html();
+              var oldDate = $(tds[2]).html();
+              var oldNotes = $(tds[3]).html();
+              $(tds[1]).html("<input class='form-control input-sm input-slim' type='number' value='"+oldNum+"'>");
+              $(tds[2]).html("<input class='form-control input-sm' type='text' value='"+oldDate+"'>");
+              $(tds[3]).html("<input class='form-control input-sm' type='text' value='"+oldNotes+"'>");
+              $($(tds[2]).find("input")[0]).datepicker({
+                changeMonth: true,
+                changeYear: true
+              });
               $(btn).replaceWith("<button class='btn btn-xs btn-primary' onclick='save(this);'>Save</button>");
             }
 
             function save(btn){
-              var tr = $(btn).closest("tr").find("td");
-              var viralLoadId = $($(tr[0])).html();
-              var newNum = $($(tr[1]).find("input")[0]).val();
-              var newNotes = $($(tr[3]).find("input")[0]).val();
+              var tr = $(btn).closest("tr");
+              var tds = $(tr).find("td");
+              var viralLoadId = $($(tds[0])).html();
+              var newNum = $($(tds[1]).find("input")[0]).val();
+              var newNotes = $($(tds[3]).find("input")[0]).val();
               $.ajax({
                   url: "../classes/patient/viralLoadService.cfc",
                   data: {
@@ -93,8 +101,8 @@
                       viralLoadId: viralLoadId
                   },
                   success: function (data) {
-                    $(tr[1]).html(newNum);
-                    $(tr[3]).html(newNotes);
+                    $(tds[1]).html(newNum);
+                    $(tds[3]).html(newNotes);
                     $(btn).replaceWith("<button class='btn btn-xs' onclick='edit(this);'>Edit</button>");
                   },
                   error: function (error) {
