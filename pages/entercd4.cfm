@@ -71,31 +71,39 @@
             }
 
             function edit(btn){
-              var tr = $(btn).closest("tr").find("td");
-              var oldNum = $(tr[1]).html();
-              var oldNotes = $(tr[3]).html();
-              $(tr[1]).html("<input class='input' type='number' value='"+oldNum+"'></input>");
-              $(tr[3]).html("<input class='input' type='text' value='"+oldNotes+"'></input>");
+              var tr = $(btn).closest("tr");
+              var tds = $(tr).find("td");
+              var oldNum = $(tds[1]).html();
+              var oldDate = $(tds[2]).html();
+              var oldNotes = $(tds[3]).html();
+              $(tds[1]).html("<input class='form-control input-sm' type='number' value='"+oldNum+"'>");
+              $(tds[2]).html("<input class='form-control input-sm' type='text' value='"+oldDate+"'>");
+              $(tds[3]).html("<input class='form-control input-sm' type='text' value='"+oldNotes+"'>");
+              $($(tds[2]).find("input")[0]).datepicker({
+                changeMonth: true,
+                changeYear: true
+              });
               $(btn).replaceWith("<button class='btn btn-xs btn-primary' onclick='save(this);'>Save</button>");
             }
 
             function save(btn){
-              var tr = $(btn).closest("tr").find("td");
-              var cd4Id = $($(tr[0])).html();
-              var newNum = $($(tr[1]).find("input")[0]).val();
-              var newNotes = $($(tr[3]).find("input")[0]).val();
+              var tr = $(btn).closest("tr");
+              var tds = $(tr).find("td");
+              var cd4Id = $($(tds[0])).html();
+              var newNum = $($(tds[1]).find("input")[0]).val();
+              var newDate = $($(tds[2]).find("input")[0]).val();
+              var newNotes = $($(tds[3]).find("input")[0]).val();
               $.ajax({
                   url: "../classes/patient/cd4Service.cfc",
                   data: {
                       method: "editCD4",
                       newNum: newNum,
+                      newDate: newDate,
                       newNotes: newNotes,
                       cd4Id: cd4Id
                   },
                   success: function (data) {
-                    $(tr[1]).html(newNum);
-                    $(tr[3]).html(newNotes);
-                    $(btn).replaceWith("<button class='btn btn-xs' onclick='edit(this);'>Edit</button>");
+                    tr.html(data);
                   },
                   error: function (error) {
                       console.log("Error!:" + JSON.stringify(error));
@@ -134,8 +142,8 @@
                           },
                           success: function (data) {
                             if(data != ""){
-                              var newRow = "<tr><td>"+ data +"</td><td>" + cd4Num + "</td><td>" + cd4Date + "</td><td>" + cd4Notes + "</td><td><button class='btn btn-xs' onclick='edit(this);'>Edit</button></td></tr>";
-                              $("#cd4table tr:last").after(newRow);
+                              $("#cd4table tr:last").after(data);
+                              //Reset Form
                               $(':input', '#cd4form').not(':button, :submit, :reset, :hidden').removeAttr('checked').removeAttr('selected').not('‌​:checkbox, :radio, select').val('');
                             }
                           },
@@ -240,6 +248,8 @@
                         <th>CD4 Number</th>
                         <th>Date</th>
                         <th>Notes</th>
+                        <th>Enter Date</th>
+                        <th>Last Edit Date</th>
                         <th>Edit</th>
                       </tr>
                     </thead>
