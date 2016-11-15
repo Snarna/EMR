@@ -210,20 +210,12 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#">Profile</a>
-                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome,
                                 <cfoutput>#Session.userFname#</cfoutput>
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-envelope"></i>Support</a>
-                                </li>
-                                <li class="divider"></li>
                                 <li>
                                     <a href="signin.cfm?logout">
                                         <i class="icon-off"></i>Logout</a>
@@ -236,7 +228,7 @@
         </nav>
 
         <br>
-        <div class="container-fluid">
+        <div class="container-fluid animated fadeIn">
             <div class="row">
                 <ol class="breadcrumb fixedUnderNav">
                     <li>
@@ -284,7 +276,7 @@
                         Total of <span id="patientcount"></span> patient entries
                   </div>
                   <div class="col-sm-7">
-                      <ul class="pagination" id="pagination">
+                      <ul class="pagination cursor-pointer" id="pagination">
                       </ul>
                   </div>
                 </div>

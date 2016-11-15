@@ -77,20 +77,12 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#">Profile</a>
-                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome,
                                 <cfoutput>#Session.userFname#</cfoutput>
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-envelope"></i>Support</a>
-                                </li>
-                                <li class="divider"></li>
                                 <li>
                                     <a href="signin.cfm?logout">
                                         <i class="icon-off"></i>Logout</a>

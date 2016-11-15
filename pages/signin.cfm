@@ -101,12 +101,6 @@
                             <div class="form-group">
                               <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
                             </div>
-                            <span>
-                                <a href="#">Forgot Password</a>
-                            </span>
-                            <span class="pull-right">
-                                <a href="../pages/signup.cfm">Sign Up</a>
-                            </span>
                         </form>
                     </div>
                 </div>

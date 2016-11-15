@@ -117,9 +117,11 @@
               else{
                 if(newNum == ""){
                   $($(tds[1]).find("div").addClass("has-error"));
+                  alert("Please Fill All The Required Fields.");
                 }
                 if(newDate == ""){
                   $($(tds[2]).find("div").addClass("has-error"));
+                  alert("Please Fill All The Required Fields.");
                 }
               }
             }
@@ -184,20 +186,12 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#">Profile</a>
-                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome,
                                 <cfoutput>#Session.userFname#</cfoutput>
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-envelope"></i>Support</a>
-                                </li>
-                                <li class="divider"></li>
                                 <li>
                                     <a href="signin.cfm?logout">
                                         <i class="icon-off"></i>Logout</a>
@@ -256,10 +250,10 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>CD4 Number</th>
+                        <th>Viral Load Number</th>
                         <th>Date</th>
                         <th>Notes</th>
-                        <th>Enter Date</th>
+                        <th>Creation Date</th>
                         <th>Last Edit Date</th>
                         <th>Edit</th>
                       </tr>
