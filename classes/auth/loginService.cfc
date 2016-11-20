@@ -4,9 +4,7 @@
 		<cfargument name="proEmail" type="string" required="true"/>
 		<cfargument name="proPassword" type="string" required="true"/>
 
-	  <!--Hash Password-->
     <cfset hashedPwd = Hash(arguments.proPassword, "SHA-512")/>
-
 		<!--- Get data from db --->
 		<cfquery name="rsLoginUser" datasource="emrdb">
 			SELECT providersData.profname, providersData.prolname, providersData.providerid, providersData.proemail, providersData.propassword
