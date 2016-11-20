@@ -64,7 +64,8 @@
                                 }
                             },
                             error: function (err) {
-                                responseErrMsg("Error:" + err);
+                                var strerr = JSON.stringify(err);
+                                responseErrMsg("Error:" + strerr);
                             }
                         });
                     }
