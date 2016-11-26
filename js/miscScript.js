@@ -21,3 +21,8 @@ function responseErrMsg($msg){
       $("#responsediv").removeClass("animated shake");
   });
 }
+
+function fadeInElement(elm){
+  $(elm).hide();
+  $(elm).fadeIn();
+}

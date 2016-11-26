@@ -113,7 +113,8 @@
                         },
                         success: function (data) {
                             $("#patientstablebody").html(data);
-                            $("#patientstable tbody tr").click(conf)
+                            fadeInElement($("#patientstablebody"));
+                            $("#patientstable tbody tr").click(conf);
                         },
                         error: function (error) {
                             console.log("Error!" + error);
@@ -132,6 +133,7 @@
                             },
                             success: function (data) {
                                 $("#patientstablebody").html(data);
+                                fadeInElement($("#patientstablebody"));
                                 $("#patientstable tbody tr").click(conf);
                             },
                             error: function (error) {
