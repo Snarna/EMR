@@ -108,6 +108,7 @@
                     },
                     success: function (data) {
                       tr.html(data);
+                      greenBackgroundElm(tr);
                     },
                     error: function (error) {
                         console.log("Error!:" + JSON.stringify(error));
@@ -117,11 +118,11 @@
               else{
                 if(newNum == ""){
                   $($(tds[1]).find("div").addClass("has-error"));
-                  alert("Please Fill All The Required Fields.");
+                  redBackgroundElm($(tds[1]).find("input"));
                 }
                 if(newDate == ""){
                   $($(tds[2]).find("div").addClass("has-error"));
-                  alert("Please Fill All The Required Fields.");
+                  redBackgroundElm($(tds[2]).find("input"));
                 }
               }
             }
@@ -158,6 +159,7 @@
                           success: function (data) {
                             if(data != ""){
                               $("#cd4table tr:last").after(data);
+                              fadeInElement($("#cd4table tr:last"));
                               //Reset Form
                               $(':input', '#cd4form').not(':button, :submit, :reset, :hidden').removeAttr('checked').removeAttr('selected').not('‌​:checkbox, :radio, select').val('');
                             }
@@ -218,7 +220,7 @@
                   </li>
               </ol>
           </div>
-            <div class="main">
+            <div class="main animated fadeIn">
               <div class="row ">
                 <div class="col-sm-12">
                   <h1 class="page-header">CD4 Information</h1>

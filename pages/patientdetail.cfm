@@ -145,7 +145,7 @@
                     <li class="active">Details</li>
                 </ol>
             </div>
-            <div class="main">
+            <div class="main animated fadeIn">
                 <div class="row">
                     <div class="col-sm-12">
                         <h1 class="page-header">Patient Details</h1>

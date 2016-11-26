@@ -113,8 +113,8 @@
                         },
                         success: function (data) {
                             $("#patientstablebody").html(data);
-                            fadeInElement($("#patientstablebody"));
                             $("#patientstable tbody tr").click(conf);
+                            fadeInElement($("#patientstablebody"));
                         },
                         error: function (error) {
                             console.log("Error!" + error);
@@ -133,8 +133,8 @@
                             },
                             success: function (data) {
                                 $("#patientstablebody").html(data);
-                                fadeInElement($("#patientstablebody"));
                                 $("#patientstable tbody tr").click(conf);
+                                fadeInElement($("#patientstablebody"));
                             },
                             error: function (error) {
                                 console.log("Error!" + error);
@@ -204,7 +204,7 @@
     <body>
 
         <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
+            <div class="container-fluid ">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
@@ -234,7 +234,7 @@
         </nav>
 
         <br>
-        <div class="container-fluid animated fadeIn">
+        <div class="container-fluid">
             <div class="row">
                 <ol class="breadcrumb fixedUnderNav">
                     <li>
@@ -242,7 +242,7 @@
                     </li>
                 </ol>
             </div>
-            <div class="main">
+            <div class="main animated fadeIn">
                 <div class="row">
                     <div class="col-sm-12">
                         <h1 class="page-header">All Patients</h1>
