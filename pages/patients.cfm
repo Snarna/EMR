@@ -113,7 +113,8 @@
                         },
                         success: function (data) {
                             $("#patientstablebody").html(data);
-                            $("#patientstable tbody tr").click(conf)
+                            $("#patientstable tbody tr").click(conf);
+                            fadeInElement($("#patientstablebody"));
                         },
                         error: function (error) {
                             console.log("Error!" + error);
@@ -133,6 +134,7 @@
                             success: function (data) {
                                 $("#patientstablebody").html(data);
                                 $("#patientstable tbody tr").click(conf);
+                                fadeInElement($("#patientstablebody"));
                             },
                             error: function (error) {
                                 console.log("Error!" + error);
@@ -181,12 +183,16 @@
             $(document).ready(function () {
                 //Count Total Patients
                 countPatients();
+
                 //Get All Patients
                 getPatients({"method": "default"});
-                //Search Patients
-                $("#searchButton").click(function () {
-                    getPatients({"method": "search", "by": "id"});
+
+                //Submit Search Form
+                $("#searchForm").submit(function(event){
+                  event.preventDefault();
+                  getPatients({"method": "search", "by": "id"});
                 });
+
                 //Onclick Select All
                 $("#searchInput").click(function () {
                     $("#searchInput").select();
@@ -198,7 +204,7 @@
     <body>
 
         <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
+            <div class="container-fluid ">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
@@ -228,7 +234,7 @@
         </nav>
 
         <br>
-        <div class="container-fluid animated fadeIn">
+        <div class="container-fluid">
             <div class="row">
                 <ol class="breadcrumb fixedUnderNav">
                     <li>
@@ -236,21 +242,23 @@
                     </li>
                 </ol>
             </div>
-            <div class="main">
+            <div class="main animated fadeIn">
                 <div class="row">
                     <div class="col-sm-12">
                         <h1 class="page-header">All Patients</h1>
                     </div>
                 </div>
                 <div class="row">
+                  <form id='searchForm'>
                     <div class="col-sm-12">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="ID / Name" id="searchInput">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" id="searchButton">Search</button>
+                                <button class="btn btn-default" type="submit" id="searchButton">Search</button>
                             </span>
                         </div>
                     </div>
+                  </form>
                 </div>
 
                 <div class="row tableFixHeight">

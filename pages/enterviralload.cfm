@@ -78,7 +78,8 @@
               var oldNotes = $(tds[3]).html();
               $(tds[1]).html("<div class='form-group form-group-sm'><input class='form-control input-sm input-slim' type='number'  min='0' value='"+oldNum+"' required></div>");
               $(tds[2]).html("<div class='form-group form-group-sm'><input class='form-control input-sm' type='text' value='"+oldDate+"' required></div>");
-              $(tds[3]).html("<div class='form-group form-group-sm'><input class='form-control input-sm' type='text' value='"+oldNotes+"' required></div>");
+              $(tds[3]).html("<div class='form-group form-group-sm'><input class='form-control input-sm' type='text' ></div>");
+              $($(tds[3]).find("input")[0]).val(oldNotes);
               $($(tds[2]).find("input")[0]).datepicker({
                 changeMonth: true,
                 changeYear: true
@@ -108,6 +109,7 @@
                     },
                     success: function (data) {
                       tr.html(data);
+                      greenBackgroundElm(tr);
                     },
                     error: function (error) {
                         console.log("Error!:" + JSON.stringify(error));
@@ -117,11 +119,11 @@
               else{
                 if(newNum == ""){
                   $($(tds[1]).find("div").addClass("has-error"));
-                  alert("Please Fill All The Required Fields.");
+                  redBackgroundElm($(tds[1]).find("input"));
                 }
                 if(newDate == ""){
                   $($(tds[2]).find("div").addClass("has-error"));
-                  alert("Please Fill All The Required Fields.");
+                  redBackgroundElm($(tds[1]).find("input"));
                 }
               }
             }
@@ -158,6 +160,7 @@
                             success: function (data) {
                               if(data != ""){
                                 $("#vltable tr:last").after(data);
+                                fadeInElement($("#vltable tr:last"));
                                 $(':input', '#vlform').not(':button, :submit, :reset, :hidden').removeAttr('checked').removeAttr('selected').not('‌​:checkbox, :radio, select').val('');
                               }
                             },
@@ -216,7 +219,7 @@
                   </li>
               </ol>
           </div>
-            <div class="main">
+            <div class="main animated fadeIn">
               <div class="row ">
                 <div class="col-sm-12">
                   <h1 class="page-header">Viral Load Information</h1>

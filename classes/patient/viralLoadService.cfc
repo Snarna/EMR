@@ -65,7 +65,7 @@
 
 		<cfquery name="editViralLoadQuery" datasource="emrdb">
 			UPDATE loadtestData
-			SET loadtestnum = '#newNum#', loadtestdate = '#DateFormat(newDate, "yyyy-mm-dd")#' ,loadtestnotes = '#newNotes#'
+			SET loadtestnum = '#newNum#', loadtestdate = '#DateFormat(newDate, "yyyy-mm-dd")#' ,loadtestnotes = '#newNotes#', loadtesteditdate = NOW()
 			WHERE loadtestid = '#viralLoadId#'
 		</cfquery>
 
