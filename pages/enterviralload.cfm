@@ -78,7 +78,8 @@
               var oldNotes = $(tds[3]).html();
               $(tds[1]).html("<div class='form-group form-group-sm'><input class='form-control input-sm input-slim' type='number'  min='0' value='"+oldNum+"' required></div>");
               $(tds[2]).html("<div class='form-group form-group-sm'><input class='form-control input-sm' type='text' value='"+oldDate+"' required></div>");
-              $(tds[3]).html("<div class='form-group form-group-sm'><input class='form-control input-sm' type='text' value='"+oldNotes+"' required></div>");
+              $(tds[3]).html("<div class='form-group form-group-sm'><input class='form-control input-sm' type='text' ></div>");
+              $($(tds[3]).find("input")[0]).val(oldNotes);
               $($(tds[2]).find("input")[0]).datepicker({
                 changeMonth: true,
                 changeYear: true
