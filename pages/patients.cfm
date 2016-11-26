@@ -181,12 +181,16 @@
             $(document).ready(function () {
                 //Count Total Patients
                 countPatients();
+
                 //Get All Patients
                 getPatients({"method": "default"});
-                //Search Patients
-                $("#searchButton").click(function () {
-                    getPatients({"method": "search", "by": "id"});
+
+                //Submit Search Form
+                $("#searchForm").submit(function(event){
+                  event.preventDefault();
+                  getPatients({"method": "search", "by": "id"});
                 });
+
                 //Onclick Select All
                 $("#searchInput").click(function () {
                     $("#searchInput").select();
@@ -243,14 +247,16 @@
                     </div>
                 </div>
                 <div class="row">
+                  <form id='searchForm'>
                     <div class="col-sm-12">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="ID / Name" id="searchInput">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" id="searchButton">Search</button>
+                                <button class="btn btn-default" type="submit" id="searchButton">Search</button>
                             </span>
                         </div>
                     </div>
+                  </form>
                 </div>
 
                 <div class="row tableFixHeight">
