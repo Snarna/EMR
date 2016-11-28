@@ -123,7 +123,7 @@
                 }
                 if(newDate == ""){
                   $($(tds[2]).find("div").addClass("has-error"));
-                  redBackgroundElm($(tds[1]).find("input"));
+                  redBackgroundElm($(tds[2]).find("input"));
                 }
               }
             }
