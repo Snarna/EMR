@@ -9,7 +9,7 @@
     <meta name="description" content="EMR User Home Page">
     <meta name="author" content="Snarna">
 
-    <title>Client Home Page</title>
+    <title>Sign Up Page</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap-cerulean.min.css" rel="stylesheet">

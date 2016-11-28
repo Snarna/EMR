@@ -15,120 +15,220 @@
     <link href="../css/bootstrap-cerulean.min.css" rel="stylesheet">
     <link href="../css/dashboard.css" rel="stylesheet">
 	<link href="../css/checkbox-x.css" rel="stylesheet">
+	<link href="../css/jquery-ui.min.css" rel="stylesheet">
+	<link href="../css/signin.css" rel="stylesheet">
+	<link href="../css/animate.css" rel="stylesheet">
 	  
 
     <!-- Bootstrap core JavaScript -->
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-	  <script src="../js/jquery.multipage.js"></script>
-	  <script type="text/javascript">
-		$(window).ready(function() {
-            $('#multipage').multipage({transitionFunction:transition,stateFunction: textpages});
-		});
-		
-		function transition(from,to) {
-			$(from).fadeOut('fast',function(){$(to).fadeIn('fast');});
-		
-		}
-		function textpages(obj,page,pages) { 
-			$(obj).html(page + ' of ' + pages);
-		}
-
-	</script>
+	  <script src="../js/jquery.validate.js"></script>
 	<script src="../js/checkbox-x.js"></script>
-	
+	  <script src="../js/multipage.js"></script>
+	  <script src="../js/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+		$(window).ready(function() {
+   
+		   $( function() {
+			$( "#dob" ).datepicker({
+				//format: mm/dd/yyyy,
+				changeMonth: true,
+				changeYear: true,
+				maxDate: '@maxDate',
+				yearRange: '1916:2016'
+			});
+
+		      });
+		});
+	  </script>
   </head>
 
   <body>
-	<nav class="navbar navbar-default navbar-fixed-top progbar">
-		<div class="container-fluid">
-			<h1>SURVEY TABLET APP</h1>
-		</div>
-	</nav>
+	<nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="index.cfm">Exit Survey</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 	  
 	<cfquery datasource="surveyApp" name="survCode">
-		SELECT surveyCode FROM adminData
-		WHERE surveyCode = '#form.surveyCode#'
+		SELECT surveyCode FROM surveyTracker
+		WHERE surveyCode = '#form.surveyCode#' AND codeAvail > 0
 	</cfquery>
 	  
-	<div class="container-fluid surv-quest">
-		
-		<cfif len(survCode.surveyCode)>
-			<form id="multipage" method="post" action="/SURVEYAPP/classes/api/surveyApp.cfc?method=sendSurveyData">
-				<fieldset id="page_one">
-					<legend>
-						<cfoutput>
-							<h1>What is your First Name?</h1>
-						</cfoutput>
-					</legend>
-					<p class="input">
-						<label for="fname">First Name</label>
-                		<input type="text" name="fname" id="fname">
-					</p>		
-					<div class="surv-btn">
-					<input type="button" class="btn btn-primary" onclick="return $('#multipage').nextpage();" name="next" value="Next">
+	<div class="container">
+		<cfif len(survCode.surveyCode)>		
+			<div id="extraControls" class="hidden">	
+			<form class="form" method="post" action="/SURVEYAPP/classes/api/surveyApp.cfc?method=sendSurveyData">
+					<input name="surveyCode" id="surveyCode" type="hidden" value=<cfoutput>#form.surveyCode#</cfoutput>>
+				
+				
+				
+					<div class="step" id="page_one">
+						<div class="modal-dialog animated fadeInDown">
+							<div class="modal-content mytransparent">
+								<div class="modal-header">
+									<h1 class="text-center">Tell us about yourself.</h1>
+								</div>
+								<div class="modal-body">
+										<div class="form-group smalltext">
+											<div class="row">
+												<div class="form-group"> 
+													<input class="form-control" name="fname" id="fname" placeholder="First Name" type="text">
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group">
+													<input class="form-control" name="lname" id="lname" placeholder="Last Name" type="text">
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group">
+													<input class="form-control" name="dob" id="dob" placeholder="Date of Birth (YYYY-MM-DD)" type="text">
+												</div>	
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				</fieldset>
-				<fieldset id="page_two">
-					<legend>
-						<cfoutput>
-							<h1>What is your Last Name?</h1>
-						</cfoutput>
-					</legend>
-					<p class="input">
-						<label for="lname">Last Name</label>
-                		<input type="text" name="lname" id="lname">
-					</p>		
-					
-					<div class="surv-btn">
-					<input type="button" class="btn btn-secondary" onclick="return $('#multipage').prevpage();" name="next" value="Back">
-					<input type="button" class="btn btn-primary" onclick="return $('#multipage').nextpage();" name="next" value="Next">
+
+
+					<div class="step" id="page_two">
+						<div class="form-group smalltext">
+							<div class="modal-dialog animated">
+								<div class="modal-content mytransparent">
+									<div class="modal-header">
+										<h3 class="text-center">In the last two weeks, how many doses of HIV medications have you missed?</h3>
+									</div>
+									<div class="modal-body">
+										<div class="form-group smalltext">
+											<div class="row">
+												<div class="form-group">
+													<label for="doses">Missed Doses: </label>
+												</div>
+												<div class="form-group"> 
+													<select class="form-control" name="q1"  id="q1">
+														<option>0</option>
+														<option>1</option>
+														<option>2</option>
+														<option>3</option>
+														<option>4</option>
+														<option>5</option>
+														<option>6</option>
+														<option>7</option>
+														<option>8</option>
+														<option>9</option>
+														<option>10</option>	
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				</fieldset>
-				<fieldset id="page_three">
-					<legend>
-						<cfoutput>
-							<h1>What is your DOB?</h1>
-						</cfoutput>
-					</legend>
-					<p class="input">
-						<label for="dob">DOB</label>
-                		<input type="text" name="dob" id="dob">
-					</p>	
-					<div class="surv-btn">
-					<input type="button" class="btn btn-secondary" onclick="return $('#multipage').prevpage();" name="next" value="Back">
-					<input type="button" class="btn btn-primary" onclick="return $('#multipage').nextpage();" name="next" value="Next">
+
+
+					<div class="step" id="page_three">
+						<div class="form-group smalltext">
+							<div class="modal-dialog animated">
+								<div class="modal-content mytransparent">
+									<div class="modal-header">
+										<h3 class="text-center">In the last two weeks, how many days did you miss at least one dose of an HIV medication?</h3>
+									</div>
+									<div class="modal-body">
+										<div class="form-group smalltext">
+											<div class="row">
+												<div class="form-group">
+													<label for="doses">Missed Days: </label>
+												</div>
+												<div class="form-group"> 
+													<select class="form-control" name="q2" id="q2">
+														<option>0</option>
+														<option>1</option>
+														<option>2</option>
+														<option>3</option>
+														<option>4</option>
+														<option>5</option>
+														<option>6</option>
+														<option>7</option>
+														<option>8</option>
+														<option>9</option>
+														<option>10</option>	
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				</fieldset>
-				<fieldset id="page_four">
-					<legend>
-						<cfoutput>
-							<h1>Question 4?</h1>
-						</cfoutput>
-					</legend>
-					<p class="input">
-						<label for="q4">Q4</label>
-                		<input type="text" name="q4" id="q4">
-					</p>	
-					<div class="surv-btn">
-					<input type="button" class="btn btn-secondary" onclick="return $('#multipage').prevpage();" name="next" value="Back">
-					<input type="submit" class="btn btn-primary" name="submit" id="submit" value="Submit">
+
+
+					<div class="step" id="page_four">
+						<div class="form-group smalltext">
+							<div class="modal-dialog animated">
+								<div class="modal-content mytransparent">
+									<div class="modal-header">
+										<h3 class="text-center">Please list any side-effects that occurred in the last two weeks.</h3>
+									</div>
+									<div class="modal-body">
+										<div class="form-group smalltext">
+											<div class="row">
+												<div class="form-group">
+													<label for="doses">Side effects: </label>
+												</div>
+												<div class="form-group"> 
+													<textarea class="form-control" name="q3" id="q3" placeholder="" type="text" rows="3"></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				</fieldset>
-			</form>
-			<cfelse><cfoutput><h2>Survey Code doesn't exist. <a href="index.cfm">Go back.</a></h2></cfoutput>
+
+					<div class="surv-btn">
+							<button type="button" class="btn btn-secondary action back">Back</button>
+							<button type="button" class="btn btn-primary action next">Next</button>
+							<button type="submit" class="btn btn-primary action submit">Submit</button>
+					</div>	
+					</form> 
+				</div>			
+			
+			<cfelse><cfoutput><h2>Survey Code doesn't exist or already used. <a href="index.cfm">Go back.</a></h2></cfoutput>
 			</cfif>
-	</div>
+	</div><br/><br/><br/><br/>
 		
 	<nav class="navbar navbar-default navbar-fixed-bottom progbar">
 		<div class="container-fluid">
-			<div>
-				<h5></h5>
-			</div>
-			<div id="outerProg">
-				<div id="innerProg"></div>
-			</div>
+			<br/>
+		<div class="progress">
+		  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
 		</div>
 	</nav>
+		
+		
+	
+	 
   </body>
 </html>

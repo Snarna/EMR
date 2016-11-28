@@ -4,23 +4,24 @@
 		<cfargument name="proEmail" type="string" required="true"/>
 		<cfargument name="proPassword" type="string" required="true"/>
 
+    <cfset hashedPwd = Hash(arguments.proPassword, "SHA-512")/>
 		<!--- Get data from db --->
-		<cfquery name="rsLoginUser" datasource="emrApp">
-			SELECT providerData.proFname, providerData.proLname, providerData.proId, providerData.proEmail, providerData.proPassword
-			FROM providerData WHERE providerData.proEmail = '#arguments.proEmail#'
-			AND providerData.proPassword = '#arguments.proPassword#'
+		<cfquery name="rsLoginUser" datasource="emrdb">
+			SELECT providersData.profname, providersData.prolname, providersData.providerid, providersData.proemail, providersData.propassword
+			FROM providersData WHERE providersData.proemail = '#arguments.proEmail#'
+			AND providersData.propassword = '#hashedPwd#'
 		</cfquery>
 		<cfset var isLoggedIn = false>
 		<!--- should only get one user --->
 		<cfif rsLoginUser.recordCount EQ 1>
 			<!--- log user in --->
 			<cflogin>
-				<cfloginuser name='#rsLoginUser.proFname#' password='#rsLoginUser.proPassword#' roles="user">
+				<cfloginuser name='#rsLoginUser.profname#' password='#hashedPwd#' roles="user">
 			</cflogin>
 			<!--- save in the session (important) --->
-			<cfset session.providerEmail = rsLoginUser.proEmail/>
-			<cfset session.userFname = rsLoginUser.proFname/>
-			<cfset session.userLname = rsLoginUser.proLname/>
+			<cfset session.providerEmail = rsLoginUser.proemail/>
+			<cfset session.userFname = rsLoginUser.profname/>
+			<cfset session.userLname = rsLoginUser.prolname/>
 			<!--- change logged in variable to true --->
 			<cfset isLoggedIn=true/>
 		</cfif>

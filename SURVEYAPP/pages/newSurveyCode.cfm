@@ -15,29 +15,39 @@
     <link href="../css/bootstrap-cerulean.min.css" rel="stylesheet">
     <link href="../css/dashboard.css" rel="stylesheet">
 	<link href="../css/checkbox-x.css" rel="stylesheet">
+	  
 
     <!-- Bootstrap core JavaScript -->
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-	<script src="../js/checkbox-x.js"></script>
-
+	<script src="../js/checkbox-x.js"></script> 
   </head>
 
   <body>
 	<nav class="navbar navbar-default navbar-fixed-top progbar">
-		<div class="container-fluid">
-		</div>
 	</nav>
 	  
 	<div class="container-fluid surv-quest">
-		<h1>
-            Data Submitted: <a href="index.cfm">Return Home</a>
-        </h1><hr/>
+		<h1 class="text-center">Create New Survey Code</h1>
+		<form method="post" action="/SURVEYAPP/classes/admin/survCodeDisp.cfc?method=createSurvCode">
 
+				<div class="form-group row">
+					<div class="col-xs-12">
+						<label for="survCode">How many: </label>
+						<input class="form-control" name="numGen" id="numGen" type="text">
+					</div>
+				</div>
+
+			
+			<p class="text-center" style="padding-top:5%;">
+				<input type="submit" name="submit" id="submit" value="Create" class="btn btn-primary" style="width:40%;"/><br/>
+				<input type="button" name="cancel" id="cancel" value="Cancel" class="btn btn-secondary" style="width:40%;margin-top:1%;" onclick="history.back();"/>
+			</p>
+		</form>
 	</div>
 		
 	<nav class="navbar navbar-default navbar-fixed-bottom progbar">
-		</div>
+		
 	</nav>
   </body>
 </html>

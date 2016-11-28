@@ -9,7 +9,9 @@
         <meta name="description" content="EMR User Home Page">
         <meta name="author" content="Snarna">
 
-        <title>Client Home Page</title>
+        <title>Patient Detail Page</title>
+        <!-- My Css -->
+        <link href="../css/mycss.css" rel="stylesheet">
 
         <!-- Bootstrap core CSS -->
         <link href="../css/bootstrap-cerulean.min.css" rel="stylesheet">
@@ -31,6 +33,14 @@
 
             function viewPatientSurveyDetail(surveyId){
                 window.location.href = "../pages/surveydetail.cfm?pid=" + pid + "&surveyid=" + surveyId;
+            }
+
+            function enterCD4(){
+              window.location.href = "../pages/entercd4.cfm?pid=" + pid;
+            }
+
+            function enterViral(){
+              window.location.href = "../pages/enterviralload.cfm?pid=" + pid;
             }
 
             function getPatientDetail() {
@@ -108,12 +118,6 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#">Home</a>
-                        </li>
-                        <li>
-                            <a href="#">Profile</a>
-                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome,
                                 <cfoutput>#Session.userFname#</cfoutput>
@@ -121,12 +125,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#">
-                                        <i class="icon-envelope"></i>Support</a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="#">
+                                    <a href="signin.cfm?logout">
                                         <i class="icon-off"></i>Logout</a>
                                 </li>
                             </ul>
@@ -136,16 +135,17 @@
             </div>
         </nav>
 
+        <br>
         <div class="container-fluid">
             <div class="row">
-                <ol class="breadcrumb">
+                <ol class="breadcrumb fixedUnderNav">
                     <li>
                         <a href="patients.cfm">Patients</a>
                     </li>
                     <li class="active">Details</li>
                 </ol>
             </div>
-            <div class="main">
+            <div class="main animated fadeIn">
                 <div class="row">
                     <div class="col-sm-12">
                         <h1 class="page-header">Patient Details</h1>
@@ -204,10 +204,10 @@
                 <hr>
                 <div class="row">
                     <div class="col-sm-6">
-                        <button class="btn btn-primary  btn-block">View & Edit CD4</button>
+                        <button class="btn btn-primary btn-block" onclick="enterCD4()">View & Edit CD4</button>
                     </div>
                     <div class="col-sm-6">
-                        <button class="btn btn-primary btn-block">View & Edit Viral Load</button>
+                        <button class="btn btn-primary btn-block" onclick="enterViral()">View & Edit Viral Load</button>
                     </div>
                 </div>
             </div>

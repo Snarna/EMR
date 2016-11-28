@@ -2,22 +2,23 @@
 
     <cffunction name="countPatients" access="remote" returnformat="json" returntype="any">
         <!--- Get data from database --->
-        <cfquery name="countQuery" datasource="emrApp">
-            SELECT COUNT(*) AS patientNum FROM surveyData
+        <cfquery name="countQuery" datasource="emrdb">
+            SELECT COUNT(*) AS patientNum FROM patientsData
         </cfquery>
         <cfreturn countQuery.patientNum>
     </cffunction>
 
     <cffunction name="getPatients" access="remote" returnformat="json" returntype="any">
+        <cfargument name="startNum" type="numeric"required="yes">
         <cfset var response="">
 
-        <cfquery name="patientQuery" datasource="emrApp">
-            SELECT * FROM surveyData
+        <cfquery name="patientQuery" datasource="emrdb">
+            SELECT * FROM patientsData LIMIT #startNum# , 10
         </cfquery>
 
         <cfloop query="patientQuery">
-            <cfset var response &= "<tr>">
-            <cfset var response &= "<td>" & #patientID# & "</td><td>" & #question1# & "</td><td>" & #question2# & "</td><td>" & #question3# & "</td><td>N/A</td>">
+            <cfset var response &="<tr>">
+            <cfset var response &="<td>" & #patientid# & "</td><td>" & #pfname# & "</td><td>" & #plname# & "</td><td>" & #DateFormat(pdob, 'mmm. dd, yyyy')# & "</td><td>" & #DateFormat(regDate, 'mmm. dd, yyyy')# &"</td>"> 
         </cfloop>
 
         <cfreturn response>

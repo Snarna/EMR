@@ -5,12 +5,12 @@
 
         <cfquery name="patientSurveyQuery" datasource="emrdb">
             SELECT * FROM surveyData
-            WHERE patientID = #pid#
+            WHERE patientid = #pid#
         </cfquery>
 
         <cfloop query="patientSurveyQuery">
             <cfset var response &="<tr>">
-            <cfset var response &="<td>" & #surveyID# & "</td><td>" & "N/A" & "</td><td>" & "<button class=""btn btn-xs"" onclick=""viewPatientSurveyDetail('#surveyID#')"">View</button> " & "</td>">
+            <cfset var response &="<td>" & #surveyid# & "</td><td>" & #DateFormat(dateTaken, "mmm. dd, yyyy")# & "</td><td>" & "<button class=""btn btn-xs"" onclick=""viewPatientSurveyDetail('#surveyid#')"">View</button> " & "</td>">
         </cfloop>
 
         <cfreturn response>

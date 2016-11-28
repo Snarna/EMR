@@ -14,6 +14,8 @@
     <link href="../css/bootstrap-cerulean.min.css" rel="stylesheet">
 	<link href="../css/dashboard.css" rel="stylesheet">
 	<link href="../css/checkbox-x.css" rel="stylesheet">
+	<link href="../css/signin.css" rel="stylesheet">
+	<link href="../css/animate.css" rel="stylesheet">
 	  
     <!-- Bootstrap core JavaScript -->
     <script src="../js/jquery-3.1.1.min.js"></script>
@@ -23,23 +25,53 @@
   </head>
 
   <body>
-	<nav class="navbar navbar-default navbar-fixed-top progbar">
-		<div class="container-fluid">
-			<h1>SURVEY TABLET APP</h1>
-		</div>
-	</nav>
-	<div class="container-fluid" id="surv-cont">
-        <form id="survForm" name="survForm" method="post" action="surveyPage.cfm">
-            <div id="surv-btn">
-                <label for="pid">Survey Code</label>
-                <input type="text" name="surveyCode" id="surveyCode">
-                <p>
-                    <input type="submit" name="submit" id="submit" value="Start Survey" class="btn btn-primary"/>
-                </p>
+	<nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="adminLogin.cfm">Admin Login</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </form>	
-	</div>
-		
+        </nav>
+	  <div class="container">
+		<legend><h1 class="animated fadeIn" style="color:white;">Welcome!</h1></legend>
+		<div class="container-fluid">
+			<form id="survForm" name="survForm" method="post" action="surveyPage.cfm">
+				<div class="modal-dialog animated fadeInDown">
+					<div class="modal-content mytransparent">
+						<div class="modal-header">
+							<h3 class="text-center">Please verify survey code:</h3>
+						</div>
+						<div class="modal-body">
+								<div class="form-group smalltext">
+									<div class="row">
+										<div class="form-group"> 
+											<input class="form-control" name="surveyCode" id="surveyCode" placeholder="Survey Code" type="text">
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group" id="start-survey">
+											<input type="submit" name="submit" id="submit" value="Start Survey" class="btn btn-danger"/>
+										</div>
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>	
+			</form>	
+		</div>
+	  </div><br/><br/><br/><br/>
 	<nav class="navbar navbar-default navbar-fixed-bottom progbar">
 	</nav>
   </body>
