@@ -64,7 +64,7 @@
                 </div>
             </div>
         </nav>
-	  
+	  	  <cfparam name="form.surveyCode" default="0">
 	<cfquery datasource="surveyApp" name="survCode">
 		SELECT surveyCode FROM surveyTracker
 		WHERE surveyCode = '#form.surveyCode#' AND codeAvail > 0
@@ -214,7 +214,13 @@
 					</form> 
 				</div>			
 			
-			<cfelse><cfoutput><h2>Survey Code doesn't exist or already used. <a href="index.cfm">Go back.</a></h2></cfoutput>
+			<cfelse><div class="modal-dialog animated fadeInDown">
+							<div class="modal-content mytransparent">
+								<div class="modal-header">
+									<h2>Survey Code doesn't exist or already used. <a href="index.cfm">Go back.</a></h2>
+								</div>
+							</div>
+						</div>
 			</cfif>
 	</div><br/><br/><br/><br/>
 		
